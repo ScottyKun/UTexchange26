@@ -3,16 +3,37 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/services/auth.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-
-  constructor() {}
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+ 
+  constructor(private authService: AuthService, private router: Router) {}
+ 
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.authService.getToken();
+ 
+    if (token) {
+      req = req.clone({
+        setHeaders: { Authorization: `Bearer ${token}` }
+      });
+    }
+ 
+    return next.handle(req).pipe(
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          // Token expiré ou invalide → déconnexion automatique
+          this.authService.clearSession();
+          this.router.navigate(['/login']);
+        }
+        return throwError(() => err);
+      })
+    );
   }
 }
