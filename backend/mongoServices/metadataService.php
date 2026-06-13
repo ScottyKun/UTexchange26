@@ -29,7 +29,6 @@ class MetadataService
         try {
             $result = self::col()->insertOne([
                 'annonce_id'    => (int) ($data['annonce_id']    ?? 0),
-                'user_id'       => (int) ($data['user_id']       ?? 0),
                 'nom_fichier'   => $data['nom_fichier']   ?? '',
                 'type_mime'     => $data['type_mime']     ?? 'application/octet-stream',
                 'taille'        => (int) ($data['taille'] ?? 0),

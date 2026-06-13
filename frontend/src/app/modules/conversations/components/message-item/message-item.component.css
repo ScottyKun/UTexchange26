@@ -1,0 +1,6 @@
+.message-wrap { display:flex; margin-bottom:8px; }
+.message-wrap.mine { justify-content:flex-end; }
+.bubble { max-width:72%; padding:10px 14px; border-radius:16px; background:#f3f4f6; }
+.mine .bubble { background:#0056b3; color:#fff; }
+.bubble-text { font-size:14px; line-height:1.5; margin-bottom:3px; }
+.bubble-time { font-size:10.5px; opacity:.65; }

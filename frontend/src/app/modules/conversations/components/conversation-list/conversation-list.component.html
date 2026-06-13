@@ -1,0 +1,21 @@
+<div class="messages-page">
+  <div class="messages-header">
+    <h1>Messages</h1>
+  </div>
+
+  <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
+
+  <div *ngIf="!loading && conversations.length === 0" class="empty-state">
+    <i class="fa-regular fa-comment-dots fa-2x"></i>
+    <p>Aucune conversation</p>
+  </div>
+
+  <div *ngIf="!loading && conversations.length > 0" class="conv-list">
+    <app-conversation-item
+      *ngFor="let c of conversations"
+      [conversation]="c"
+      [currentUserId]="currentUserId"
+      (select)="openConversation($event)">
+    </app-conversation-item>
+  </div>
+</div>

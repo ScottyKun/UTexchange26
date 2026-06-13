@@ -1,1 +1,53 @@
-<p>navbar works!</p>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a routerLink="/annonces" class="brand">
+      UTex<span class="brand-accent">CHANGE</span>
+    </a>
+
+    <div class="header-actions">
+      <!-- Non connecté -->
+      <ng-container *ngIf="!isAuthenticated()">
+        <a routerLink="/login"    class="btn-header-secondary">Connexion</a>
+        <a routerLink="/register" class="btn-header-primary">S'inscrire</a>
+      </ng-container>
+
+      <!-- Connecté -->
+      <ng-container *ngIf="isAuthenticated()">
+        <a routerLink="/annonces/new/create" class="btn-header-primary">
+          <i class="fa-solid fa-plus"></i> Déposer
+        </a>
+        <a routerLink="/conversations" class="header-icon-btn" title="Messages">
+          <i class="fa-regular fa-comment-dots"></i>
+          <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+        </a>
+        <a routerLink="/profil" class="header-avatar" title="Mon profil">
+          {{ currentUser?.prenom?.charAt(0) | uppercase }}
+        </a>
+        <button class="btn-header-secondary" (click)="logout()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+        <a *ngIf="isAdmin()" routerLink="/admin" class="btn-admin" title="Administration">
+          <i class="fa-solid fa-shield-halved"></i>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+</header>
+
+<!-- NAV CATÉGORIES -->
+<nav class="categories-nav">
+  <ul>
+    <li><a routerLink="/annonces" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <i class="fa-solid fa-border-all"></i> Tout
+    </a></li>
+    <li><a [routerLink]="['/annonces']" [queryParams]="{type:'don'}" routerLinkActive="active-don">
+      <i class="fa-solid fa-gift"></i> Dons
+    </a></li>
+    <li *ngFor="let c of categories">
+      <a [routerLink]="['/annonces']" [queryParams]="{cat_id: c.id}" routerLinkActive="active">
+        {{ c.nom }}
+      </a>
+    </li>
+  </ul>
+</nav>

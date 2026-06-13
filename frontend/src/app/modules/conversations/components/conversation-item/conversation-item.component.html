@@ -1,0 +1,16 @@
+<div class="conv-item" (click)="select.emit(conversation.id)">
+  <div class="conv-avatar">
+    {{ (currentUserId === conversation.acheteur_id ? conversation.vendeur_nom : conversation.acheteur_nom).charAt(0) | uppercase }}
+  </div>
+  <div class="conv-info">
+    <p class="conv-partner">
+      {{ currentUserId === conversation.acheteur_id ? conversation.vendeur_nom : conversation.acheteur_nom }}
+    </p>
+    <p class="conv-annonce">{{ conversation.annonce_title }}</p>
+    <p class="conv-last">{{ conversation.last_message || 'Pas encore de message' }}</p>
+  </div>
+  <div class="conv-meta">
+    <span class="conv-date">{{ conversation.last_message_at | date:'dd/MM' }}</span>
+    <span class="conv-badge status-{{ conversation.status }}">{{ conversation.status }}</span>
+  </div>
+</div>

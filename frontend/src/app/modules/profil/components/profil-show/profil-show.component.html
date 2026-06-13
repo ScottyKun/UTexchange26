@@ -1,0 +1,61 @@
+<div class="profil-page" *ngIf="!loading && user">
+
+  <div class="profil-layout">
+
+    <!-- Colonne gauche : carte profil -->
+    <div class="profil-sidebar">
+      <div class="profil-card">
+        <div class="profil-avatar-wrap">
+          <div class="profil-avatar">{{ user.fullName.charAt(0) | uppercase }}</div>
+        </div>
+        <div class="profil-body">
+          <p class="profil-name">{{ user.fullName }}</p>
+          <div class="profil-meta">
+            <span *ngIf="user.campus"><i class="fa-solid fa-location-dot"></i> {{ user.campus }}</span>
+            <span><i class="fa-regular fa-calendar"></i> Membre depuis {{ user.date_inscription | date:'MMM yyyy' }}</span>
+          </div>
+          <div class="profil-stats">
+            <div class="stat-box">
+              <p class="stat-val">{{ annonces.length }}</p>
+              <p class="stat-label">Annonces</p>
+            </div>
+            <div class="stat-box" *ngIf="stats?.total">
+              <p class="stat-val gold">{{ stats?.moyenne?.toFixed(1) }}★</p>
+              <p class="stat-label">{{ stats?.total }} avis</p>
+            </div>
+          </div>
+          <div *ngIf="isOwn" class="profil-own-actions">
+            <a routerLink="/profil/edit" class="btn-edit"><i class="fa-solid fa-pen"></i> Modifier</a>
+            <a routerLink="/annonces/user/mine" class="btn-mine">Mes annonces</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne droite : annonces + avis -->
+    <div class="profil-content">
+      <div class="tabs">
+        <button [class.active]="activeTab === 'annonces'" (click)="activeTab = 'annonces'">
+          Annonces ({{ annonces.length }})
+        </button>
+        <button [class.active]="activeTab === 'avis'" (click)="activeTab = 'avis'">
+          Avis reçus ({{ avis.length }})
+        </button>
+      </div>
+
+      <!-- Tab annonces -->
+      <div *ngIf="activeTab === 'annonces'">
+        <div *ngIf="annonces.length === 0" class="empty-tab">Aucune annonce publiée</div>
+        <app-annonce-list-item *ngFor="let a of annonces" [annonce]="a"></app-annonce-list-item>
+      </div>
+
+      <!-- Tab avis -->
+      <div *ngIf="activeTab === 'avis'">
+        <div *ngIf="avis.length === 0" class="empty-tab">Aucun avis reçu</div>
+        <app-avis-item *ngFor="let a of avis" [avis]="a"></app-avis-item>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>

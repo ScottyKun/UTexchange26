@@ -17,6 +17,7 @@ export class Annonce {
   view_count: number = 0;
   created_at: string = '';
   seller?: User;
+  cover?: Photo;
   photos: Photo[] = [];
   avis_stats?: { total: number; moyenne: number };
 
@@ -24,6 +25,9 @@ export class Annonce {
     Object.assign(this, data);
     if (data.seller) this.seller = new User(data.seller);
     if (data.photos) this.photos = data.photos.map(p => new Photo(p));
+    if ((data as any).cover) {
+      this.cover = new Photo((data as any).cover);
+    }
   }
 
   get coverPhoto(): Photo | undefined {

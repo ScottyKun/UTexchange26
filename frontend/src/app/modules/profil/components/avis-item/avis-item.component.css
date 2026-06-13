@@ -1,0 +1,10 @@
+.avis-card { background:#fff; border-radius:12px; padding:14px 16px; border:1.5px solid #f0f0f0; }
+.avis-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.avis-avatar { width:36px; height:36px; border-radius:50%; background:#0056b3; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex-shrink:0; }
+.avis-author { font-size:13px; font-weight:600; color:#1e293b; }
+.avis-annonce { font-size:11px; color:#9ca3af; }
+.avis-stars { margin-left:auto; font-size:16px; }
+.star { color:#f59e0b; }
+.star.empty { color:#e5e7eb; }
+.avis-comment { font-size:13px; color:#374151; line-height:1.5; }
+.avis-date { font-size:11px; color:#9ca3af; }

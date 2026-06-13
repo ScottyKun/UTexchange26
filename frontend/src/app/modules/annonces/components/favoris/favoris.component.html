@@ -1,0 +1,20 @@
+<div class="page">
+  <h1 class="page-title"><i class="fa-solid fa-heart"></i> Mes favoris</h1>
+
+  <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
+
+  <div *ngIf="!loading && annonces.length === 0" class="empty-state">
+    <i class="fa-regular fa-heart fa-2x"></i>
+    <p>Aucun favori pour le moment</p>
+    <a routerLink="/annonces" class="btn-cta">Explorer les annonces</a>
+  </div>
+
+  <div *ngIf="!loading && annonces.length > 0" class="annonces-grid">
+    <app-annonce-item
+      *ngFor="let a of annonces"
+      [annonce]="a"
+      [isFavori]="true"
+      (toggleFavori)="removeFavori($event)">
+    </app-annonce-item>
+  </div>
+</div>

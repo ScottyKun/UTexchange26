@@ -1,0 +1,87 @@
+<div class="show-page">
+
+  <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
+
+  <div *ngIf="errorMsg && !loading" class="empty-state">
+    <i class="fa-solid fa-triangle-exclamation"></i><p>{{ errorMsg }}</p>
+  </div>
+
+  <ng-container *ngIf="annonce && !loading">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a routerLink="/annonces">Annonces</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>{{ annonce.title }}</span>
+    </div>
+
+    <div class="show-layout">
+
+      <!-- Galerie photos -->
+      <div class="gallery">
+        <div class="gallery-main">
+          <img *ngIf="annonce.photos.length > 0"
+               [src]="photoUrl(annonce.photos[activePhotoIndex].nom_fichier)"
+               [alt]="annonce.title" class="main-photo"/>
+          <div *ngIf="annonce.photos.length === 0" class="photo-placeholder">
+            <i class="fa-solid fa-image fa-3x"></i>
+          </div>
+        </div>
+        <div class="gallery-thumbs" *ngIf="annonce.photos.length > 1">
+          <img *ngFor="let p of annonce.photos; let i = index"
+               [src]="photoUrl(p.nom_fichier)"
+               [class.active]="i === activePhotoIndex"
+               (click)="activePhotoIndex = i"
+               class="thumb"/>
+        </div>
+      </div>
+
+      <!-- Infos -->
+      <div class="show-info">
+        <div class="info-header">
+          <span class="type-badge type-{{ annonce.type }}">{{ annonce.type | titlecase }}</span>
+          <h1 class="annonce-title">{{ annonce.title }}</h1>
+          <p class="annonce-price" *ngIf="!annonce.isFree && !annonce.isTroc">
+            {{ annonce.price | number:'1.0-0' }}&nbsp;€
+          </p>
+          <p class="annonce-price free" *ngIf="annonce.isFree">Gratuit</p>
+        </div>
+
+        <p class="annonce-desc">{{ annonce.description }}</p>
+
+        <div class="info-meta">
+          <span *ngIf="annonce.location"><i class="fa-solid fa-location-dot"></i> {{ annonce.location }}</span>
+          <span><i class="fa-regular fa-clock"></i> {{ annonce.created_at | date:'dd/MM/yyyy' }}</span>
+          <span><i class="fa-regular fa-eye"></i> {{ annonce.view_count }} vues</span>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-btns" *ngIf="!isOwner()">
+          <button class="btn-contact" (click)="contacter()" [disabled]="contactLoading">
+            <i class="fa-solid fa-comment-dots"></i>
+            {{ contactLoading ? 'Ouverture…' : 'Contacter le vendeur' }}
+          </button>
+          <button class="btn-favori" (click)="toggleFavori()" [class.active]="isFavori">
+            <i [class]="isFavori ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+          </button>
+        </div>
+
+        <div class="action-btns" *ngIf="isOwner()">
+          <a [routerLink]="['/annonces', annonce.id, 'edit']" class="btn-edit">
+            <i class="fa-solid fa-pen"></i> Modifier
+          </a>
+        </div>
+
+        <!-- Vendeur -->
+        <div class="seller-card" *ngIf="annonce.seller">
+          <div class="seller-avatar">{{ annonce.seller.fullName.charAt(0) }}</div>
+          <div>
+            <p class="seller-name">{{ annonce.seller.fullName }}</p>
+            <p class="seller-campus">{{ annonce.seller.campus }}</p>
+          </div>
+          <a [routerLink]="['/profil', annonce.seller.id]" class="seller-link">Voir le profil</a>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

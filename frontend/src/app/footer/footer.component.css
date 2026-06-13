@@ -1,0 +1,8 @@
+.site-footer { background:#1e293b; color:#94a3b8; padding:32px 20px; margin-top:auto; }
+.footer-inner { max-width:900px; margin:0 auto; text-align:center; }
+.footer-brand { font-family:'Poppins',sans-serif; font-size:1.3rem; font-weight:900; color:#fff; margin-bottom:4px; }
+.footer-sub { font-size:13px; margin-bottom:16px; }
+.footer-links { display:flex; justify-content:center; gap:20px; margin-bottom:16px; }
+.footer-links a { color:#94a3b8; text-decoration:none; font-size:13px; }
+.footer-links a:hover { color:#fff; }
+.footer-copy { font-size:11px; }

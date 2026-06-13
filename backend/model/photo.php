@@ -49,6 +49,7 @@ class Photo{
         return [
             'id' => $this->id,
             'annonce_id' => $this->annonce_id,
+            'nom_fichier' => $this->nom_fichier,
             'chemin_fichier' => $this->chemin_fichier,
             'is_cover' => $this->is_cover,
             'created_at' => $this->created_at
