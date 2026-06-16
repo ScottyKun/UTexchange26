@@ -60,9 +60,50 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Ajouter des photos</label>
-        <input type="file" accept="image/*" multiple (change)="onFilesChange($event)"/>
+       <div class="mb-7">
+
+  <label class="block text-sm font-semibold text-gray-600 mb-2">
+    Photos
+  </label>
+
+      <!-- DROP ZONE -->
+      <div
+        class="drop-zone"
+        (click)="fileInput.click()"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)"
+      >
+
+          <i class="fa-solid fa-cloud-arrow-up icon"></i>
+
+          <p>
+            Glissez vos images ici ou cliquez pour sélectionner
+          </p>
+
+          <input
+            #fileInput
+            type="file"
+            multiple
+            accept="image/*"
+            hidden
+            (change)="onFilesChange($event)"
+          />
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="photo-preview" *ngIf="selectedFiles.length > 0">
+
+          <div class="photo-item" *ngFor="let file of selectedFiles; let i = index">
+            <img [src]="getPreview(file)" />
+            <button type="button" (click)="removeFile(i)">×</button>
+          </div>
+
+        </div>
+
+        <p class="hint" *ngIf="selectedFiles.length > 0">
+          {{ selectedFiles.length }} photo(s) sélectionnée(s)
+        </p>
+
       </div>
 
       <div class="form-actions">

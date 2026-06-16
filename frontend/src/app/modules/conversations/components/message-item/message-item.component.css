@@ -1,6 +1,54 @@
-.message-wrap { display:flex; margin-bottom:8px; }
+.message-wrap { display:flex; margin-bottom:8px; margin-left: 5px; margin-right: 5px; }
 .message-wrap.mine { justify-content:flex-end; }
 .bubble { max-width:72%; padding:10px 14px; border-radius:16px; background:#f3f4f6; }
 .mine .bubble { background:#0056b3; color:#fff; }
 .bubble-text { font-size:14px; line-height:1.5; margin-bottom:3px; }
 .bubble-time { font-size:10.5px; opacity:.65; }
+.actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+/* bouton base */
+.actions button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+/* EDIT */
+.btn-edit {
+  color: #3b82f6; /* bleu */
+}
+.btn-edit:hover {
+  background: rgba(59,130,246,0.1);
+}
+
+/* DELETE */
+.btn-delete {
+  color: #ef4444; /* rouge */
+}
+.btn-delete:hover {
+  background: rgba(239,68,68,0.1);
+}
+
+/* SAVE */
+.btn-save {
+  color: #22c55e; /* vert */
+}
+.btn-save:hover {
+  background: rgba(34,197,94,0.1);
+}
+
+/* CANCEL */
+.btn-cancel {
+  color: #6b7280; /* gris */
+}
+.btn-cancel:hover {
+  background: rgba(107,114,128,0.1);
+}

@@ -1,71 +1,158 @@
 <div class="fil-page">
-  <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
+
+  <div *ngIf="loading" class="loader-wrap">
+    <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+  </div>
 
   <ng-container *ngIf="conversation && !loading">
 
-    <!-- Header conversation -->
-    <div class="conv-header">
-      <a routerLink="/conversations" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
-      <div class="header-info">
-        <p class="header-partner">
-          {{ currentUserId === conversation.acheteur_id ? conversation.vendeur_nom : conversation.acheteur_nom }}
-        </p>
-        <p class="header-annonce">
-          <i class="fa-solid fa-tag"></i> {{ conversation.annonce_title }}
-        </p>
-      </div>
-      <div class="header-actions">
-        <span class="status-badge status-{{ conversation.status }}">{{ conversation.status }}</span>
-        <button *ngIf="isVendeur() && conversation.isActive"
-                class="btn-sm btn-danger" (click)="terminateConversation()">
-          Terminer
-        </button>
-      </div>
-    </div>
+    <div class="content-layout">
 
-    <!-- Fil de messages -->
-    <div class="messages-scroll">
-      <app-message-item
-        *ngFor="let m of messages"
-        [message]="m"
-        [isMine]="m.isFrom(currentUserId)">
-      </app-message-item>
+      <!-- ================= CHAT COLUMN ================= -->
+      <div class="chat-column">
 
-      <!-- Avis reçus dans la conv -->
-      <div *ngIf="conversation.avis.length > 0" class="avis-section">
-        <p class="avis-title"><i class="fa-solid fa-star"></i> Avis laissés dans cette conversation</p>
-        <div *ngFor="let a of conversation.avis" class="avis-chip">
-          {{ a.acheteur_nom }} → {{ a.vendeur_nom }} : {{ a.note }}/5 — {{ a.commentaire }}
+        <!-- HEADER DANS CHAT -->
+        <div class="conv-header-card">
+
+          <a routerLink="/conversations" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+
+          <div class="header-info">
+            <p class="header-partner">
+              {{ currentUserId === conversation.acheteur_id ? conversation.vendeur_nom : conversation.acheteur_nom }}
+            </p>
+
+            <p class="header-annonce">
+              <i class="fa-solid fa-tag"></i> {{ conversation.annonce_title }}
+            </p>
+          </div>
+
+          <div class="header-actions">
+            <span class="status-badge status-{{ conversation.status }}">
+              {{ conversation.status | convStatus }}
+            </span>
+
+            <button *ngIf="isVendeur() && conversation.isActive"
+                    class="btn-sm btn-danger"
+                    (click)="terminateConversation()">
+              Terminer
+            </button>
+          </div>
+
         </div>
-      </div>
 
-      <div #messagesEnd></div>
-    </div>
+        <!-- MESSAGES -->
+        <div class="messages-card" >
+          <div class="messages-scroll">
 
-    <!-- Zone saisie -->
-    <div class="input-area" *ngIf="conversation.isActive">
-      <textarea [(ngModel)]="newMessage" rows="2" placeholder="Votre message…"
-                (keydown.control.enter)="sendMessage()"></textarea>
-      <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim() || sending">
-        <i [class]="sending ? 'fa-solid fa-spinner fa-spin' : 'fa-solid fa-paper-plane'"></i>
-      </button>
-    </div>
+            <app-message-item
+              *ngFor="let m of messages"
+              [message]="m"
+              [isMine]="m.isFrom(currentUserId)"
+              [convId]="conversation.id"
+              [conversationStatus]="conversation.status"
+              (action)="onMessageAction($event)"
+              (deleted)="onMessageDeleted($event)">
+            </app-message-item>
 
-    <!-- CTA laisser un avis -->
-    <div *ngIf="conversation.isTerminee && !hasMyAvis() && !isVendeur()" class="avis-cta">
-      <button (click)="showAvisForm = !showAvisForm" class="btn-avis">
-        <i class="fa-solid fa-star"></i> Laisser un avis
-      </button>
-      <div *ngIf="showAvisForm" class="avis-form">
-        <label>Note</label>
-        <div class="stars-input">
-          <span *ngFor="let n of noteRange" (click)="avisForm.note = n"
-                [class.active]="n <= avisForm.note" class="star">★</span>
+            <div #messagesEnd></div>
+
+          </div>
         </div>
-        <textarea [(ngModel)]="avisForm.commentaire" rows="3" placeholder="Votre commentaire…"></textarea>
-        <button class="btn-sm btn-primary" (click)="submitAvis()">Envoyer</button>
+
+        <!-- INPUT -->
+        <div class="input-area" *ngIf="conversation.isActive">
+          <textarea
+            [(ngModel)]="newMessage"
+            rows="2"
+            placeholder="Votre message…"
+            (keydown)="handleKeyDown($event)">
+          </textarea>
+
+          <button class="send-btn"
+                  (click)="sendMessage()"
+                  [disabled]="!newMessage.trim() || sending">
+            <i [class]="sending ? 'fa-solid fa-spinner fa-spin' : 'fa-solid fa-paper-plane'"></i>
+          </button>
+        </div>
+
       </div>
+
+      <!-- ================= AVIS COLUMN ================= -->
+      <div class="avis-sidebar">
+
+        <div *ngIf="conversation.avis.length > 0" class="avis-card">
+
+          <p class="avis-title">
+            <i class="fa-solid fa-star"></i> Avis
+          </p>
+
+          <div class="avis-list">
+            <div *ngFor="let a of conversation.avis" class="avis-chip">
+              <!-- étoiles -->
+            <div class="avis-stars">
+              <span *ngFor="let s of [1,2,3,4,5]">
+                <i class="fa-star"
+                  [class.fa-solid]="s <= a.note"
+                  [class.fa-regular]="s > a.note"></i>
+              </span>
+
+              <span class="avis-note-text">({{ a.note }}/5)</span>
+            </div>
+
+            <!-- personnes -->
+            <div class="avis-users">
+              {{ a.acheteur_nom }} → {{ a.vendeur_nom }}
+            </div>
+
+            <!-- commentaire -->
+            <div class="avis-comment">
+              {{ a.commentaire }}
+            </div>
+
+          </div>
+         </div>
+
+        </div>
+
+        <div *ngIf="conversation.isTerminee && !hasMyAvis() && !isVendeur()"
+             class="avis-cta">
+
+          <button (click)="showAvisForm = !showAvisForm" class="btn-avis">
+            <i class="fa-solid fa-star"></i> Laisser un avis
+          </button>
+
+          <div *ngIf="showAvisForm" class="avis-form">
+
+            <label>Note</label>
+
+            <div class="stars-input">
+              <span *ngFor="let n of noteRange"
+                    (click)="avisForm.note = n"
+                    [class.active]="n <= avisForm.note"
+                    class="star">
+                ★
+              </span>
+            </div>
+
+            <textarea [(ngModel)]="avisForm.commentaire"
+                      rows="3"
+                      placeholder="Votre commentaire…">
+            </textarea>
+
+            <button class="btn-sm btn-primary" (click)="submitAvis()">
+              Envoyer
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
   </ng-container>
+
 </div>

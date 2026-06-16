@@ -1,21 +1,46 @@
-/* HEADER */
-.site-header { background:#fff; border-bottom:1.5px solid #f0f0f0; position:sticky; top:0; z-index:200; }
-.header-inner { max-width:1260px; margin:0 auto; padding:0 20px; height:60px; display:flex; align-items:center; justify-content:space-between; }
-.brand { font-family:'Poppins',sans-serif; font-size:1.4rem; font-weight:900; color:#1e293b; text-decoration:none; }
-.brand-accent { color:#0056b3; }
-.header-actions { display:flex; align-items:center; gap:8px; }
-.btn-header-primary { padding:8px 18px; background:#0056b3; color:#fff; border-radius:10px; text-decoration:none; font-weight:600; font-size:13px; display:flex; align-items:center; gap:6px; }
-.btn-header-secondary { padding:8px 16px; border:1.5px solid #e5e7eb; border-radius:10px; color:#374151; text-decoration:none; font-weight:600; font-size:13px; background:none; cursor:pointer; }
-.btn-header-secondary:hover { background:#f3f4f6; }
-.header-icon-btn { position:relative; padding:8px 10px; color:#374151; text-decoration:none; font-size:18px; border-radius:10px; }
-.header-icon-btn:hover { background:#f3f4f6; }
-.badge { position:absolute; top:4px; right:4px; background:#ef4444; color:#fff; font-size:9px; font-weight:700; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
-.header-avatar { width:36px; height:36px; border-radius:50%; background:#0056b3; color:#fff; font-weight:700; font-size:15px; display:flex; align-items:center; justify-content:center; text-decoration:none; }
-.btn-admin { padding:8px 10px; color:#7c3aed; text-decoration:none; font-size:16px; border-radius:10px; }
-.btn-admin:hover { background:#f5f3ff; }
-/* NAV */
-.categories-nav { background:#fff; border-bottom:1px solid #f0f0f0; position:sticky; top:60px; z-index:100; }
-.categories-nav ul { list-style:none; display:flex; justify-content:center; gap:2px; margin:0; padding:0 8px; flex-wrap:wrap; }
-.categories-nav ul li a { display:flex; align-items:center; gap:5px; padding:9px 13px; font-size:13px; font-weight:500; text-decoration:none; color:#374151; border-radius:8px; transition:all .15s; white-space:nowrap; }
-.categories-nav ul li a:hover, .categories-nav ul li a.active { color:#0056b3; background:#eff6ff; font-weight:700; }
-.categories-nav ul li a.active-don { color:#059669; background:#d1fae5; font-weight:700; }
+.categories-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0 8px;
+  flex-wrap: wrap;
+}
+
+.categories-nav a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  color: #374151;
+  transition: all 0.15s;
+}
+
+.categories-nav a:hover {
+  color: #044080;
+  background: #f0f6ff;
+}
+
+
+.active-all {
+  color: #0056b3;
+  background: #eff6ff;
+  font-weight: 700;
+}
+
+.active-don {
+  color: #059669;
+  background: #d1fae5;
+  font-weight: 700;
+}
+
+.active-cat {
+  color: #034892;
+  background: #eff6ff;
+  font-weight: 700;
+}

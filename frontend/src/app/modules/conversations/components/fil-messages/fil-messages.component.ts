@@ -25,6 +25,8 @@ export class FilMessagesComponent implements OnInit {
   showAvisForm = false;
   avisForm: AvisFormData = { note: 5, commentaire: '' };
   noteRange = [1, 2, 3, 4, 5];
+  shouldScroll = true;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -52,23 +54,20 @@ export class FilMessagesComponent implements OnInit {
   }
 
   scrollToBottom(): void {
-    try { this.messagesEnd?.nativeElement.scrollIntoView({ behavior: 'smooth' }); } catch {}
-  }
+  if (!this.shouldScroll) return;
+
+  try {
+    this.messagesEnd?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  } catch {}
+}
 
   sendMessage(): void {
     const content = this.newMessage.trim();
     if (!content || this.sending) return;
     this.sending = true;
     this.convService.sendMessage(this.conversation!.id, content).subscribe({
-      next: () => {
-        // Optimistic update
-        this.messages.push(new Message({
-          id: Date.now().toString(),
-          expediteur_id: this.currentUserId,
-          contenu: content,
-          is_read: false,
-          created_at: new Date().toISOString()
-        }));
+      next: (res) => {
+        this.messages.push(res.data);
         this.newMessage = '';
         this.sending = false;
       },
@@ -96,5 +95,28 @@ export class FilMessagesComponent implements OnInit {
   hasMyAvis(): boolean {
     return this.conversation?.hasAvisFromUser(this.currentUserId) ?? false;
   }
+
+  onMessageDeleted(messageId: string): void {
+    this.messages = this.messages.filter(m => m.id !== messageId);
+  }
+
+  handleKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      this.sendMessage();
+    }
+  }
+
+  onMessageAction(action: 'edit' | 'save' | 'delete' | 'cancel'): void {
+    if (action === 'edit' || 'cancel') {
+      this.shouldScroll = false;
+    }
+
+    if (action === 'save') {
+      this.shouldScroll = true; 
+      this.scrollToBottom();
+    }
+  }
+
 }
 

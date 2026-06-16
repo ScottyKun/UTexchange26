@@ -1,7 +1,31 @@
-.annonce-card { display:block; text-decoration:none; background:#fff; border-radius:12px; overflow:hidden; border:1.5px solid #f0f0f0; transition:box-shadow .2s,transform .15s; }
-.annonce-card:hover { box-shadow:0 6px 20px rgba(0,0,0,.1); transform:translateY(-2px); }
-.card-img-wrap { position:relative; padding-top:68%; background:#f3f4f6; overflow:hidden; }
-.card-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.annonce-card { 
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  flex-shrink: 0;
+  width: 210px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+ }
+.annonce-card:hover { box-shadow:0 6px 20px rgba(0,0,0,.1); transform: scale(1.03); }
+.card-img-wrap {
+  height: 150px;
+  background: #f4f6f8;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform .3s ease;
+}
 .card-badge { position:absolute; top:8px; left:8px; padding:3px 9px; border-radius:20px; font-size:11px; font-weight:700; }
 .badge-vente    { background:#dbeafe; color:#1d4ed8; }
 .badge-location { background:#fef3c7; color:#d97706; }

@@ -2,7 +2,19 @@
 .breadcrumb { display:flex; align-items:center; gap:6px; font-size:12px; color:#9ca3af; margin-bottom:20px; }
 .breadcrumb a { color:inherit; text-decoration:none; } .breadcrumb a:hover { color:#0056b3; }
 .show-layout { display:grid; grid-template-columns:1fr 380px; gap:28px; align-items:start; }
-@media(max-width:768px) { .show-layout { grid-template-columns:1fr; } }
+@media (max-width: 992px){
+  .show-layout{
+    grid-template-columns:1fr;
+  }
+  .sidebar{
+    position:static;
+    order:2;
+  }
+  .content-column{
+    order:1;
+  }
+
+}
 .gallery-main { border-radius:12px; overflow:hidden; background:#f3f4f6; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; }
 .main-photo { width:100%; height:100%; object-fit:cover; }
 .photo-placeholder { color:#d1d5db; }
@@ -32,3 +44,232 @@
 .seller-campus { font-size:12px; color:#9ca3af; }
 .seller-link { margin-left:auto; font-size:12px; color:#0056b3; text-decoration:none; font-weight:600; }
 .loader-wrap, .empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:80px 20px; color:#9ca3af; }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 5000;
+}
+
+.modal-card {
+  width: 420px;
+  max-width: 95%;
+
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,.15);
+}
+
+.modal-card h3 {
+  margin-bottom: 18px;
+  color: #0056b3;
+}
+
+.modal-card select {
+  width: 100%;
+  padding: 12px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.btn-secondary {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  background: #bd3131;
+  color: white;
+}
+
+.btn-primary {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  background: #0056b3;
+  color: white;
+}
+
+.show-layout{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:24px;
+  align-items:start;
+}
+
+.main-column{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+
+.info-card,
+.description-card,
+.sidebar-card,
+.seller-card{
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  border:1px solid #ececec;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+
+.sidebar{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  position:sticky;
+  top:20px;
+}
+
+.info-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.annonce-title{
+  font-size:1.45rem;
+  font-weight:700;
+  color:#111827;
+}
+
+.badge-actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.detail-pill{
+  border:none;
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.pill-vente{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.pill-location{
+  background:#fef3c7;
+  color:#d97706;
+}
+
+.pill-don{
+  background:#d1fae5;
+  color:#059669;
+}
+
+.pill-troc{
+  background:#ede9fe;
+  color:#7c3aed;
+}
+
+.pill-active{
+  background:#d1fae5;
+  color:#059669;
+}
+
+.pill-draft{
+  background:#f3f4f6;
+  color:#6b7280;
+}
+
+.pill-vendu{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+.price-big{
+  font-size:2rem;
+  font-weight:800;
+  color:#0056b3;
+  margin:12px 0;
+}
+
+.price-free{
+  color:#059669;
+}
+
+.price-troc{
+  color:#7c3aed;
+}
+
+.meta-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#6b7280;
+  margin-top:10px;
+  font-size:14px;
+}
+
+.description-card h2{
+  margin-bottom:14px;
+  font-size:1rem;
+  font-weight:700;
+}
+
+.description-card p{
+  white-space:pre-line;
+  line-height:1.8;
+  color:#4b5563;
+  display:flex;
+}
+
+.btn-primary,
+.btn-secondary{
+  width:100%;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  font-weight:600;
+  cursor:pointer;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.btn-primary{
+  background:#0056b3;
+  color:white;
+  
+}
+
+.btn-secondary{
+  background:#b72727;
+  color:white;
+}
+
+.content-column{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}

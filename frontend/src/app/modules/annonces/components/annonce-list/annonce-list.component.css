@@ -1,10 +1,197 @@
 .list-page { max-width:1260px; margin:0 auto; padding:24px 20px 56px; }
-.filter-bar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
-.filter-search { display:flex; flex:2; min-width:200px; border:1.5px solid #e5e7eb; border-radius:10px; overflow:hidden; }
-.filter-search input { flex:1; padding:9px 14px; border:none; font-size:13px; outline:none; }
-.filter-search button { padding:0 14px; background:none; border:none; cursor:pointer; color:#9ca3af; }
-.filter-bar select { padding:9px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-size:13px; background:#fff; cursor:pointer; }
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.search-box {
+  display: flex;
+  background: #fafafa;
+  border: 1.5px solid #ebebeb;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  padding: 8px 12px;
+  outline: none;
+  font-size: 13px;
+}
+
+.search-box button {
+  background: none;
+  border: none;
+  padding: 0 12px;
+  cursor: pointer;
+  color: #9ca3af;
+}
+
+select,
+input {
+  padding: 8px 10px;
+  border: 1.5px solid #ebebeb;
+  border-radius: 9px;
+  font-size: 13px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+select.active,
+input.active {
+  border-color: #0056b3;
+}
+
+.reset-btn {
+  padding: 9px 14px;
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  color: #ef4444;
+}
 .annonces-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
 .loader-wrap { display:flex; justify-content:center; padding:60px; color:#9ca3af; }
 .empty-state { display:flex; flex-direction:column; align-items:center; gap:12px; padding:60px 20px; color:#9ca3af; text-align:center; }
 .btn-cta { padding:10px 20px; background:#0056b3; color:#fff; border-radius:10px; text-decoration:none; font-weight:600; font-size:13px; }
+.hero-banner {
+    background: linear-gradient(135deg, #0056b3 0%, #004a99 100%);
+    border-radius: 18px;
+    padding: 36px 40px;
+    margin-bottom: 36px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+.hero-banner::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,.06);
+    border-radius: 50%;
+}
+.hero-banner::after {
+    content: '';
+    position: absolute; bottom: -60px; right: 80px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,.04);
+    border-radius: 50%;
+}
+.hero-banner h1 {
+  font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:900;margin-bottom:8px; display: justify;
+}
+
+.hero-banner p {
+ opacity:.85;font-size:14px;margin-bottom:20px;max-width:1000px;text-align:'justify';
+}
+
+.btn-hero {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  padding: 10px 22px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-hero:hover { background: rgba(255,255,255,0.25); color: white; }
+
+.category-block {
+  margin-bottom: 32px;
+}
+
+.annonces-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+.annonces-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.annonces-scroll::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 10px;
+}
+
+/* Card voir plus */
+.see-more-card {
+  width: 140px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border: 2px dashed #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.15s;
+}
+
+.see-more-card:hover {
+  border-color: #0056b3;
+  color: #0056b3;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.category-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #111;
+}
+
+.see-all-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+
+.see-all-link:hover {
+  color: #0056b3;
+}

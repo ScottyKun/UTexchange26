@@ -12,76 +12,270 @@
     <div class="breadcrumb">
       <a routerLink="/annonces">Annonces</a>
       <i class="fa-solid fa-chevron-right"></i>
+      <a routerLink="/annonces/user/mine">Annonces de {{ user?.prenom + ' ' + user?.nom }}</a>
+      <i class="fa-solid fa-chevron-right"></i>
       <span>{{ annonce.title }}</span>
     </div>
 
     <div class="show-layout">
 
-      <!-- Galerie photos -->
-      <div class="gallery">
-        <div class="gallery-main">
-          <img *ngIf="annonce.photos.length > 0"
-               [src]="photoUrl(annonce.photos[activePhotoIndex].nom_fichier)"
-               [alt]="annonce.title" class="main-photo"/>
-          <div *ngIf="annonce.photos.length === 0" class="photo-placeholder">
-            <i class="fa-solid fa-image fa-3x"></i>
+      <!-- COLONNE GAUCHE -->
+      <div class="sidebar">
+
+        <!-- Infos annonce -->
+        <div class="info-card">
+
+          <h1 class="annonce-title">
+            {{ annonce.title }}
+          </h1>
+
+          <div class="badge-actions">
+
+            <ng-container *ngIf="isOwner(); else readonlyBadges">
+
+              <button class="detail-pill pill-{{annonce.type}}"
+                      (click)="changeType()">
+                {{ annonce.type | titlecase }}
+                <i class="fa-solid fa-pen"></i>
+              </button>
+
+              <button class="detail-pill pill-{{annonce.status}}"
+                      (click)="changeStatus()">
+                {{ annonce.status | titlecase }}
+                <i class="fa-solid fa-pen"></i>
+              </button>
+
+            </ng-container>
+
+            <ng-template #readonlyBadges>
+
+              <span class="detail-pill pill-{{annonce.type}}">
+                {{ annonce.type | titlecase }}
+              </span>
+
+              <span class="detail-pill pill-{{annonce.status}}">
+                {{ annonce.status | titlecase }}
+              </span>
+
+            </ng-template>
+
           </div>
-        </div>
-        <div class="gallery-thumbs" *ngIf="annonce.photos.length > 1">
-          <img *ngFor="let p of annonce.photos; let i = index"
-               [src]="photoUrl(p.nom_fichier)"
-               [class.active]="i === activePhotoIndex"
-               (click)="activePhotoIndex = i"
-               class="thumb"/>
-        </div>
-      </div>
 
-      <!-- Infos -->
-      <div class="show-info">
-        <div class="info-header">
-          <span class="type-badge type-{{ annonce.type }}">{{ annonce.type | titlecase }}</span>
-          <h1 class="annonce-title">{{ annonce.title }}</h1>
-          <p class="annonce-price" *ngIf="!annonce.isFree && !annonce.isTroc">
-            {{ annonce.price | number:'1.0-0' }}&nbsp;€
+          <p class="price-big"
+            [class.price-free]="annonce.isFree"
+            [class.price-troc]="annonce.isTroc">
+
+            <ng-container *ngIf="annonce.isFree">
+              Gratuit
+            </ng-container>
+
+            <ng-container *ngIf="annonce.isTroc">
+              Échange
+            </ng-container>
+
+            <ng-container *ngIf="!annonce.isFree && !annonce.isTroc">
+              {{ annonce.price | number:'1.0-0' }} €
+            </ng-container>
+
           </p>
-          <p class="annonce-price free" *ngIf="annonce.isFree">Gratuit</p>
-        </div>
 
-        <p class="annonce-desc">{{ annonce.description }}</p>
+          <div class="meta-row">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>{{ annonce.location }}</span>
+          </div>
 
-        <div class="info-meta">
-          <span *ngIf="annonce.location"><i class="fa-solid fa-location-dot"></i> {{ annonce.location }}</span>
-          <span><i class="fa-regular fa-clock"></i> {{ annonce.created_at | date:'dd/MM/yyyy' }}</span>
-          <span><i class="fa-regular fa-eye"></i> {{ annonce.view_count }} vues</span>
+          <div class="meta-row">
+            <i class="fa-regular fa-calendar"></i>
+            <span>{{ annonce.created_at | date:'dd/MM/yyyy' }}</span>
+          </div>
+
+          <div class="meta-row">
+            <i class="fa-regular fa-eye"></i>
+            <span>{{ annonce.view_count }} vues</span>
+          </div>
+
         </div>
 
         <!-- Actions -->
-        <div class="action-btns" *ngIf="!isOwner()">
-          <button class="btn-contact" (click)="contacter()" [disabled]="contactLoading">
-            <i class="fa-solid fa-comment-dots"></i>
-            {{ contactLoading ? 'Ouverture…' : 'Contacter le vendeur' }}
-          </button>
-          <button class="btn-favori" (click)="toggleFavori()" [class.active]="isFavori">
-            <i [class]="isFavori ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
-          </button>
+        <div class="sidebar-card">
+
+          <ng-container *ngIf="!isOwner()">
+
+            <button class="btn-primary"
+                    (click)="contacter()"
+                    [disabled]="contactLoading">
+
+              <i class="fa-regular fa-comment-dots"></i>
+
+              {{ contactLoading
+                  ? 'Ouverture...'
+                  : 'Contacter le vendeur' }}
+            </button>
+            <br>
+            <button class="btn-secondary"
+                    (click)="toggleFavori()">
+
+              <i [class]="isFavori
+                  ? 'fa-solid fa-heart'
+                  : 'fa-regular fa-heart'">
+              </i>
+
+              Favoris
+            </button>
+
+          </ng-container>
+
+          <ng-container *ngIf="isOwner()">
+
+            <a [routerLink]="['/annonces', annonce.id, 'edit']"
+              class="btn-primary">
+
+              <i class="fa-solid fa-pen"></i>
+              Modifier
+
+            </a>
+
+          </ng-container>
+
         </div>
 
-        <div class="action-btns" *ngIf="isOwner()">
-          <a [routerLink]="['/annonces', annonce.id, 'edit']" class="btn-edit">
-            <i class="fa-solid fa-pen"></i> Modifier
-          </a>
-        </div>
+        <!-- Profil vendeur -->
+        <div class="seller-card" *ngIf="user">
 
-        <!-- Vendeur -->
-        <div class="seller-card" *ngIf="annonce.seller">
-          <div class="seller-avatar">{{ annonce.seller.fullName.charAt(0) }}</div>
-          <div>
-            <p class="seller-name">{{ annonce.seller.fullName }}</p>
-            <p class="seller-campus">{{ annonce.seller.campus }}</p>
+          <div class="seller-avatar">
+            {{ user.prenom.charAt(0) }}{{ user.nom.charAt(0) }}
           </div>
-          <a [routerLink]="['/profil', annonce.seller.id]" class="seller-link">Voir le profil</a>
+
+          <div class="seller-info">
+
+            <p class="seller-name">
+              {{ user.prenom }} {{ user.nom }}
+            </p>
+
+            <p class="seller-campus">
+              {{ user.campus }}
+            </p>
+
+          </div>
+
+          <a [routerLink]="['/profil', user.id]"
+            class="seller-link">
+
+            Voir le profil
+
+          </a>
+
         </div>
+
       </div>
+
+      <!-- COLONNE DROITE -->
+      <div class="content-column">
+
+        <!-- Galerie -->
+        <div class="gallery-card">
+
+          <div class="gallery-main">
+
+            <img *ngIf="annonce.photos.length"
+                [src]="photoUrl(annonce.photos[activePhotoIndex].nom_fichier)"
+                [alt]="annonce.title"
+                class="main-photo">
+
+            <div *ngIf="!annonce.photos.length"
+                class="photo-placeholder">
+
+              <i class="fa-regular fa-image"></i>
+
+            </div>
+
+          </div>
+
+          <div class="gallery-thumbs"
+              *ngIf="annonce.photos.length > 1">
+
+            <img *ngFor="let p of annonce.photos; let i=index"
+                [src]="photoUrl(p.nom_fichier)"
+                [class.active]="i===activePhotoIndex"
+                (click)="activePhotoIndex=i"
+                class="thumb">
+
+          </div>
+
+        </div>
+
+      </div>
+    <br>  
     </div>
+    <!-- Description -->
+        <div class="description-card">
+
+          <h2>Description</h2>
+
+          <p>{{ annonce.description }}</p>
+
+        </div>
   </ng-container>
+</div>
+
+<div class="modal-backdrop" *ngIf="showTypeModal">
+  <div class="modal-card">
+
+    <h3>Modifier le type</h3>
+
+    <select [(ngModel)]="selectedType">
+      <option *ngFor="let t of types" [value]="t.value">
+        {{ t.label }}
+      </option>
+    </select>
+
+    <div class="modal-actions">
+      <button
+        class="btn-secondary"
+        (click)="showTypeModal = false">
+
+        Annuler
+      </button>
+
+      <button
+        class="btn-primary"
+        (click)="saveType()"
+        [disabled]="typeLoading">
+
+        {{ typeLoading ? 'Enregistrement...' : 'Valider' }}
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="showStatusModal">
+  <div class="modal-card">
+
+    <h3>Modifier le statut</h3>
+
+    <select [(ngModel)]="selectedStatus">
+      <option *ngFor="let s of statuses" [value]="s.value">
+        {{ s.label }}
+      </option>
+    </select>
+
+    <div class="modal-actions">
+      <button
+        class="btn-secondary"
+        (click)="showStatusModal = false">
+
+        Annuler
+      </button>
+
+      <button
+        class="btn-primary"
+        (click)="saveStatus()"
+        [disabled]="statusLoading">
+
+        {{ statusLoading ? 'Enregistrement...' : 'Valider' }}
+      </button>
+    </div>
+
+  </div>
 </div>

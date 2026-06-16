@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/services/auth.service';
-import { ConversationService } from 'src/services/conversations.service';
 import { CategorieService } from 'src/services/categories.service';
-import { User } from 'src/models/user';
+import { ActivatedRoute } from '@angular/router';
 import { Categorie } from 'src/models/categorie';
 
 @Component({
@@ -13,35 +10,36 @@ import { Categorie } from 'src/models/categorie';
 })
 export class NavbarComponent implements OnInit {
 
-  currentUser?: User | null;
   categories: Categorie[] = [];
-  unreadCount = 0;
-  menuOpen = false;
+  activeCatId: number | null = null;
+  activeType: string | null = null;
+
 
   constructor(
-    private authService: AuthService,
-    private convService: ConversationService,
     private categorieService: CategorieService,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.authService.getCurrentUser();
     this.categorieService.getAll().subscribe(res => { this.categories = res.data ?? []; });
-    if (this.authService.isAuthenticated()) { this.loadUnread(); }
-  }
 
-  loadUnread(): void {
-    this.convService.getUnreadCount().subscribe(res => {
-      this.unreadCount = res.data?.count ?? 0;
+    this.route.queryParams.subscribe(params => {
+      this.activeCatId = params['cat_id'] ? +params['cat_id'] : null;
+      this.activeType = params['type'] ?? null;
     });
   }
 
-  isAuthenticated(): boolean { return this.authService.isAuthenticated(); }
-  isAdmin(): boolean { return this.authService.isAdmin(); }
-
-  logout(): void {
-    this.authService.logout().subscribe(() => { this.router.navigate(['/login']); });
+  isAllActive(): boolean {
+    return !this.activeCatId && !this.activeType;
   }
+
+  isDonActive(): boolean {
+    return this.activeType === 'don';
+  }
+
+  isCatActive(id: number): boolean {
+    return this.activeCatId === id;
+  }
+
 
 }

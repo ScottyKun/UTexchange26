@@ -13,18 +13,32 @@
 
   <div *ngIf="!loading && annonces.length > 0" class="annonces-table">
     <div *ngFor="let a of annonces" class="annonce-row">
-      <a [routerLink]="['/annonces', a.id]" class="row-title">{{ a.title }}</a>
-      <span class="row-status status-{{ a.status }}">{{ a.status }}</span>
-      <span class="row-price">{{ a.isFree ? 'Gratuit' : (a.price + ' €') }}</span>
-      <span class="row-date">{{ a.created_at | date:'dd/MM/yy' }}</span>
-      <div class="row-actions">
-        <a [routerLink]="['/annonces', a.id, 'edit']" class="btn-icon" title="Modifier">
-          <i class="fa-solid fa-pen"></i>
-        </a>
-        <button class="btn-icon danger" (click)="deleteAnnonce(a.id)" title="Supprimer">
-          <i class="fa-solid fa-trash"></i>
-        </button>
-      </div>
-    </div>
+  
+  <img [src]="getCoverUrl(a)" [alt]="a.title" class="item-img" loading="lazy"/>
+
+  <a [routerLink]="['/annonces', a.id]" class="row-title">
+    {{ a.title }}
+  </a>
+
+  <span class="row-status status-{{ a.status }}">{{ a.status }}</span>
+
+  <span class="row-price">
+    {{ a.isFree ? 'Gratuit' : (a.price + ' €') }}
+  </span>
+
+  <span class="row-date">
+    {{ a.created_at | date:'dd/MM/yy' }}
+  </span>
+
+  <div class="row-actions">
+    <a [routerLink]="['/annonces', a.id, 'edit']" class="btn-icon edit" title="Modifier">
+      <i class="fa-solid fa-pen bg-green-600"></i>
+    </a>
+    <button class="btn-icon danger" (click)="deleteAnnonce(a.id)" title="Supprimer">
+      <i class="fa-solid fa-trash bg-red-600"></i>
+    </button>
+  </div>
+
+</div>
   </div>
 </div>

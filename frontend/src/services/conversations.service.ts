@@ -49,8 +49,8 @@ export class ConversationService {
     );
   }
  
-  sendMessage(convId: string, contenu: string): Observable<ApiResponse<null>> {
-    return this.http.post<ApiResponse<null>>(`${this.url}/${convId}/messages/send`, { contenu });
+  sendMessage(convId: string, contenu: string): Observable<ApiResponse<Message>> {
+    return this.http.post<ApiResponse<Message>>(`${this.url}/${convId}/messages/send`, { contenu });
   }
  
   deleteMessage(convId: string, messageId: string): Observable<ApiResponse<null>> {

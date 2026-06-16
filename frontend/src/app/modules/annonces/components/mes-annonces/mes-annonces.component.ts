@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnnonceService } from 'src/services/annonces.service';
 import { Annonce } from 'src/models/annonce'
+import { environment } from 'src/environnement';
 
 @Component({
   selector: 'app-mes-annonces',
@@ -27,6 +28,13 @@ export class MesAnnoncesComponent implements OnInit {
     this.annonceService.delete(id).subscribe(() => {
       this.annonces = this.annonces.filter(a => a.id !== id);
     });
+  }
+
+  getCoverUrl(annonce: Annonce): string {
+    const p = annonce.cover;
+    if (!p) return '/assets/placeholder.png';
+
+   return `${environment.storageUrl}/${annonce.id}/${encodeURIComponent(p.nom_fichier)}`;
   }
 
 }

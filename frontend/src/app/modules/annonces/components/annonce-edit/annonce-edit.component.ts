@@ -18,6 +18,7 @@ export class AnnonceEditComponent implements OnInit {
   annonce?: Annonce;
   categories: Categorie[] = [];
   selectedFiles: File[] = [];
+  previewUrls: string[] = [];
   loading  = true;
   saving   = false;
   errorMsg = '';
@@ -64,7 +65,43 @@ export class AnnonceEditComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onFilesChange(event: Event): void {
-    this.selectedFiles = Array.from((event.target as HTMLInputElement).files ?? []);
+    const files = Array.from((event.target as HTMLInputElement).files ?? []);
+    this.addFiles(files);
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    const files = Array.from(event.dataTransfer?.files ?? []);
+    this.addFiles(files);
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  private addFiles(files: File[]): void {
+    const remaining = 8 - this.selectedFiles.length;
+
+    const newFiles = files.slice(0, remaining);
+
+    this.selectedFiles.push(...newFiles);
+
+    newFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrls.push(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  removeFile(index: number): void {
+    this.selectedFiles.splice(index, 1);
+    this.previewUrls.splice(index, 1);
+  }
+
+  getPreview(file: File): string {
+    return URL.createObjectURL(file);
   }
 
   deletePhoto(photoId: number): void {

@@ -5,6 +5,8 @@ import { ConversationService } from 'src/services/conversations.service';
 import { FavoriService } from 'src/services/favoris.service';
 import { AuthService } from 'src/services/auth.service';
 import { Annonce } from 'src/models/annonce';
+import { UserService } from 'src/services/users.service';
+import { User } from 'src/models/user';
 import { environment } from 'src/environnement';
 
 @Component({
@@ -15,11 +17,36 @@ import { environment } from 'src/environnement';
 export class AnnonceShowComponent implements OnInit {
 
   annonce?: Annonce;
+  user?: User;
   loading   = true;
   errorMsg  = '';
   isFavori  = false;
   activePhotoIndex = 0;
   contactLoading = false;
+
+  showTypeModal = false;
+  showStatusModal = false;
+
+  selectedType = '';
+  selectedStatus = '';
+
+  typeLoading = false;
+  statusLoading = false;
+
+  readonly types = [
+    { value: 'vente', label: 'Vente' },
+    { value: 'location', label: 'Location' },
+    { value: 'don', label: 'Don' },
+    { value: 'troc', label: 'Troc' }
+  ];
+
+  readonly statuses = [
+    { value: 'active', label: 'Active' },
+    { value: 'vendu', label: 'Vendue' },
+    { value: 'expire', label: 'Expirée' },
+    { value: 'signale', label: 'Signalée' },
+    { value: 'draft', label: 'Brouillon' }
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +54,7 @@ export class AnnonceShowComponent implements OnInit {
     private annonceService: AnnonceService,
     private convService: ConversationService,
     private favoriService: FavoriService,
+    private userService: UserService,
     public authService: AuthService
   ) {}
 
@@ -37,6 +65,8 @@ export class AnnonceShowComponent implements OnInit {
         this.annonce = res.data;
         this.loading = false;
         if (this.authService.isAuthenticated()) { this.checkFavori(id); }
+        
+        this.userService.getById(this.annonce.user_id).subscribe({next: r => {this.user = r.data}})
       },
       error: () => { this.errorMsg = 'Annonce introuvable'; this.loading = false; }
     });
@@ -74,6 +104,48 @@ export class AnnonceShowComponent implements OnInit {
 
   isOwner(): boolean {
     return this.authService.getUserId() === this.annonce?.user_id;
+  }
+
+  changeType(): void {
+    this.selectedType = this.annonce!.type;
+    this.showTypeModal = true;
+  }
+
+  changeStatus(): void {
+    this.selectedStatus = this.annonce!.status;
+    this.showStatusModal = true;
+  }
+
+  saveType(): void {
+    if (!this.annonce) return;
+    this.typeLoading = true;
+    this.annonceService.updateType(this.annonce.id, this.selectedType)
+      .subscribe({
+        next: () => {
+          this.annonce!.type = this.selectedType as any;
+          this.showTypeModal = false;
+          this.typeLoading = false;
+        },
+        error: () => {
+          this.typeLoading = false;
+        }
+      });
+  }
+
+  saveStatus(): void {
+    if (!this.annonce) return;
+    this.statusLoading = true;
+    this.annonceService.updateStatus(this.annonce.id, this.selectedStatus)
+      .subscribe({
+        next: () => {
+          this.annonce!.status = this.selectedStatus as any;
+          this.showStatusModal = false;
+          this.statusLoading = false;
+        },
+        error: () => {
+          this.statusLoading = false;
+        }
+      });
   }
 
 }

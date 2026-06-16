@@ -16,6 +16,7 @@ export class AnnonceListComponent implements OnInit {
 
   annonces:   Annonce[]   = [];
   categories: Categorie[] = [];
+  groupedAnnonces: { categorie: Categorie, annonces: Annonce[] }[] = [];
   favoriIds:  Set<number> = new Set();
   loading = true;
   errorMsg = '';
@@ -35,7 +36,7 @@ export class AnnonceListComponent implements OnInit {
     private annonceService: AnnonceService,
     private categorieService: CategorieService,
     private favoriService: FavoriService,
-    private authService: AuthService,
+    public authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -64,9 +65,30 @@ export class AnnonceListComponent implements OnInit {
   loadAnnonces(): void {
     this.loading = true;
     this.annonceService.getAll(this.filters).subscribe({
-      next: res => { this.annonces = res.data ?? []; this.loading = false; },
+      next: res => { this.annonces = res.data ?? []; this.loading = false; this.buildGroupedAnnonces(); },
       error: () => { this.errorMsg = 'Impossible de charger les annonces'; this.loading = false; }
     });
+  }
+
+  buildGroupedAnnonces(): void {
+    const map = new Map<number, Annonce[]>();
+
+    for (const annonce of this.annonces) {
+      const catId = annonce.categorie_id;
+
+      if (!map.has(catId)) {
+        map.set(catId, []);
+      }
+
+      map.get(catId)!.push(annonce);
+    }
+
+    this.groupedAnnonces = this.categories
+      .map(cat => ({
+        categorie: cat,
+        annonces: map.get(cat.id) ?? []
+      }))
+      .filter(group => group.annonces.length > 0);
   }
 
   loadFavoris(): void {
@@ -85,6 +107,22 @@ export class AnnonceListComponent implements OnInit {
 
   updateQueryParams(params: any): void {
     this.router.navigate([], { relativeTo: this.route, queryParams: params, queryParamsHandling: 'merge' });
+  }
+
+  hasAnyFilter(): boolean {
+    return !!(
+      this.filters.search ||
+      this.filters.type ||
+      this.filters.cat_id ||
+      this.filters.min_price ||
+      this.filters.max_price
+    );
+  }
+
+  resetFilters(): void {
+    this.searchInput = '';
+    this.filters = {};
+    this.router.navigate([], { relativeTo: this.route, queryParams: {} });
   }
 
   onToggleFavori(id: number): void {

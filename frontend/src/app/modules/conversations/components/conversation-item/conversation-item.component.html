@@ -11,6 +11,6 @@
   </div>
   <div class="conv-meta">
     <span class="conv-date">{{ conversation.last_message_at | date:'dd/MM' }}</span>
-    <span class="conv-badge status-{{ conversation.status }}">{{ conversation.status }}</span>
+    <span class="conv-badge status-{{ conversation.status }}">{{ conversation.status | convStatus }}</span>
   </div>
 </div>
