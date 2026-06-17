@@ -1,0 +1,38 @@
+<button class="btn-flottant" (click)="toggleChat()">
+  <span class="action-btn">💬</span>
+</button>
+
+<div class="chat-window" *ngIf="isOpen">
+  <div class="chat-header">
+    <div class="header-left">
+      <div class="logo-container">
+        <img src="../../assets/favicon_utexchange.png" alt="" class="bot-logo" />
+      </div>
+      <div class="bot-info">
+        <span class="bot-name">Michele</span>
+        <span class="bot-status"><span class="status-dot"></span> Répond rapidement</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="action-btn" (click)="clearChat()">🗑️</button>
+      <button class="action-btn" (click)="toggleChat()"><strong>X</strong></button>
+    </div>
+  </div>
+
+  <div class="messages-container">
+    <div *ngFor="let msg of messages"
+         [ngClass]="{'msg-user': msg.sender === 'user', 'msg-michele': msg.sender === 'michele', 'msg-sys': msg.sender === 'system'}"
+         class="msg-common">
+      <span [innerHTML]="msg.text"></span>
+    </div>
+  </div>
+
+  <div class="input-wrapper">
+    <button class="mic-btn" (click)="startVoiceRecognition()">🎤</button>
+    <input type="text"
+           [(ngModel)]="userMessage"
+           (keydown.enter)="enoyerMessage()"
+           placeholder="Écrire à Michele...">
+    <button class="send-btn" (click)="enoyerMessage()"><strong>⬆</strong></button>
+  </div>
+</div>

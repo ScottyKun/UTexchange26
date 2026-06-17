@@ -1,0 +1,12 @@
+.conv-item { display:flex; align-items:center; gap:12px; padding:14px 16px; cursor:pointer; border-radius:12px; transition:background .15s; }
+.conv-item:hover { background:#f0f6ff; }
+.conv-avatar { width:44px; height:44px; border-radius:50%; background:#0056b3; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:18px; flex-shrink:0; }
+.conv-info { flex:1; min-width:0; }
+.conv-partner { font-size:14px; font-weight:600; color:#1e293b; margin-bottom:2px; }
+.conv-annonce { font-size:11.5px; color:#9ca3af; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.conv-last { font-size:12px; color:#6b7280; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.conv-meta { display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
+.conv-date { font-size:11px; color:#9ca3af; }
+.conv-badge { padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; }
+.status-active   { background:#d1fae5; color:#059669; }
+.status-terminee { background:#f3f4f6; color:#6b7280; }

@@ -1,0 +1,24 @@
+.profil-page { max-width:1000px; margin:0 auto; padding:28px 20px; }
+.profil-layout { display:grid; grid-template-columns:320px 1fr; gap:24px; align-items:start; }
+@media(max-width:768px) { .profil-layout { grid-template-columns:1fr; } }
+.profil-card { background:#fff; border-radius:16px; overflow:hidden; border:1.5px solid #f0f0f0; }
+.profil-avatar-wrap { height:80px; background:linear-gradient(135deg,#0056b3,#3b82f6); display:flex; align-items:flex-end; justify-content:center; padding-bottom:0; position:relative; }
+.profil-avatar { width:72px; height:72px; border-radius:50%; background:#fff; color:#0056b3; font-weight:900; font-size:28px; display:flex; align-items:center; justify-content:center; border:3px solid #fff; box-shadow:0 4px 12px rgba(0,0,0,.12); position:absolute; bottom:-28px; }
+.profil-body { padding:40px 20px 20px; text-align:center; }
+.profil-name { font-size:1.1rem; font-weight:800; color:#1e293b; margin-bottom:8px; }
+.profil-meta { display:flex; flex-direction:column; gap:4px; font-size:12px; color:#9ca3af; margin-bottom:16px; }
+.profil-meta span { display:flex; align-items:center; justify-content:center; gap:5px; }
+.profil-stats { display:flex; gap:10px; justify-content:center; margin-bottom:16px; }
+.stat-box { background:#f9fafb; border-radius:10px; padding:10px 16px; text-align:center; }
+.stat-val { font-size:1.2rem; font-weight:800; color:#1e293b; }
+.stat-val.gold { color:#f59e0b; }
+.stat-label { font-size:11px; color:#9ca3af; }
+.profil-own-actions { display:flex; gap:8px; justify-content:center; }
+.btn-edit { padding:8px 18px; border:1.5px solid #0056b3; color:#0056b3; border-radius:8px; text-decoration:none; font-weight:600; font-size:13px; }
+.btn-mine { padding:8px 18px; background:#0056b3; color:#fff; border-radius:8px; text-decoration:none; font-weight:600; font-size:13px; }
+.profil-content { background:#fff; border-radius:16px; border:1.5px solid #f0f0f0; overflow:hidden; }
+.tabs { display:flex; border-bottom:1.5px solid #f0f0f0; }
+.tabs button { flex:1; padding:14px; background:none; border:none; font-size:13px; font-weight:600; color:#9ca3af; cursor:pointer; }
+.tabs button.active { color:#0056b3; border-bottom:2px solid #0056b3; }
+.empty-tab { padding:32px; text-align:center; color:#9ca3af; font-size:14px; }
+.loader-wrap { display:flex; justify-content:center; padding:60px; color:#9ca3af; }

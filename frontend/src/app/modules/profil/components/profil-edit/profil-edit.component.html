@@ -1,0 +1,66 @@
+<div class="form-page">
+  <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
+
+  <ng-container *ngIf="!loading">
+    <div class="form-card">
+      <h1 class="form-title"><i class="fa-solid fa-user-pen"></i> Modifier mon profil</h1>
+
+      <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+      <div *ngIf="errorMsg"   class="alert alert-error">{{ errorMsg }}</div>
+
+      <form [formGroup]="infoForm" (ngSubmit)="saveInfo()" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" formControlName="prenom"
+                   [class.is-invalid]="fi['prenom'].invalid && fi['prenom'].touched"/>
+          </div>
+          <div class="form-group">
+            <label>Nom</label>
+            <input type="text" formControlName="nom"
+                   [class.is-invalid]="fi['nom'].invalid && fi['nom'].touched"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Campus</label>
+          <select formControlName="campus">
+            <option *ngFor="let c of campusList" [value]="c">{{ c }}</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <a routerLink="/profil" class="btn-secondary">Retour</a>
+          <button type="submit" class="btn-primary" [disabled]="saving">
+            {{ saving ? 'Sauvegarde…' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Changement de mot de passe -->
+    <div class="form-card" style="margin-top:20px;">
+      <h2 class="form-title"><i class="fa-solid fa-lock"></i> Changer le mot de passe</h2>
+      <div *ngIf="pwdError" class="alert alert-error">{{ pwdError }}</div>
+      <form [formGroup]="pwdForm" (ngSubmit)="savePassword()" novalidate>
+        <div class="form-group">
+          <label>Mot de passe actuel</label>
+          <input type="password" formControlName="old"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nouveau</label>
+            <input type="password" formControlName="newPwd" placeholder="8 caractères min."/>
+          </div>
+          <div class="form-group">
+            <label>Confirmer</label>
+            <input type="password" formControlName="confirm"/>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="savingPwd">
+            {{ savingPwd ? 'Modification…' : 'Changer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,146 @@
+<main class="list-page">
+
+   <div class="hero-banner" *ngIf="!authService.isAuthenticated()">
+    <h1>La marketplace des étudiants UT</h1>
+    <p>
+      Achetez, vendez et donnez entre étudiants des Universités de Technologie. Simple, rapide, entre pairs.
+    </p>
+    <a routerLink="/annonces/new/create" class="btn-hero">
+      Déposer une annonce
+    </a>
+  </div>
+
+  <!-- Barre de filtres -->
+  <form class="filter-bar" *ngIf="hasAnyFilter() || searchInput">
+
+    <!-- Recherche -->
+    <div class="filter-group" style="flex:2;min-width:200px;">
+      <span class="filter-label">Recherche</span>
+
+      <div class="search-box">
+        <input type="text"
+              [(ngModel)]="searchInput"
+              name="search"
+              placeholder="Titre, description…"
+              (keyup.enter)="applySearch()">
+
+        <button type="button" (click)="applySearch()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Type -->
+    <div class="filter-group">
+      <span class="filter-label">Type</span>
+
+      <select (change)="applyFilter('type', $any($event.target).value)"
+              [class.active]="filters.type">
+        <option value="">Tous</option>
+        <option value="vente">Vente</option>
+        <option value="don">Don gratuit</option>
+        <option value="location">Location</option>
+        <option value="troc">Troc</option>
+      </select>
+    </div>
+
+    <!-- Prix min (DISPARAÎT si don) -->
+    <div class="filter-group" *ngIf="filters.type !== 'don'">
+      <span class="filter-label">Prix min (€)</span>
+      <input type="number"
+            min="0"
+            placeholder="0"
+            [value]="filters.min_price ?? ''"
+            (change)="applyFilter('min_price', $any($event.target).value)"
+            [class.active]="filters.min_price">
+    </div>
+
+    <!-- Prix max (DISPARAÎT si don) -->
+    <div class="filter-group" *ngIf="filters.type !== 'don'">
+      <span class="filter-label">Prix max (€)</span>
+      <input type="number"
+            min="0"
+            placeholder="—"
+            [value]="filters.max_price ?? ''"
+            (change)="applyFilter('max_price', $any($event.target).value)"
+            [class.active]="filters.max_price">
+    </div>
+
+    <!-- Catégorie -->
+    <div class="filter-group">
+      <span class="filter-label">Catégorie</span>
+
+      <select (change)="applyFilter('cat_id', $any($event.target).value)"
+              [class.active]="filters.cat_id">
+        <option value="">Toutes</option>
+        <option *ngFor="let c of categories" [value]="c.id">
+          {{ c.nom }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Reset -->
+    <button type="button" class="reset-btn" (click)="resetFilters()">
+      <i class="fa-solid fa-xmark"></i> Réinitialiser
+    </button>
+
+  </form>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader-wrap">
+    <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="errorMsg && !loading" class="empty-state">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <p>{{ errorMsg }}</p>
+  </div>
+
+  <!-- Grille -->
+  <div *ngIf="!loading && groupedAnnonces.length > 0">
+  <div *ngFor="let group of groupedAnnonces" class="category-block">
+
+    <div class="category-header">
+      <h2 class="category-title">
+        {{ group.categorie.nom }}
+      </h2>
+      <a class="see-all-link"
+        [routerLink]="['/annonces']"
+        [queryParams]="{ cat_id: group.categorie.id }">
+        Voir plus
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- Scroll horizontal -->
+    <div class="annonces-scroll">
+
+      <!-- annonces -->
+      <app-annonce-item
+        *ngFor="let a of group.annonces"
+        [annonce]="a"
+        [isFavori]="isFavori(a.id)"
+        (toggleFavori)="onToggleFavori($event)">
+      </app-annonce-item>
+
+      <!-- CARD VOIR PLUS -->
+      <a class="see-more-card"
+         [routerLink]="['/annonces']"
+         [queryParams]="{ cat_id: group.categorie.id }">
+
+        <i class="fa-solid fa-arrow-right"></i>
+        Voir tout
+      </a>
+    </div>
+  </div>
+  </div>
+
+  <!-- Vide -->
+  <div *ngIf="!loading && annonces.length === 0 && !errorMsg" class="empty-state">
+    <i class="fa-solid fa-box-open fa-2x"></i>
+    <p>Aucune annonce trouvée</p>
+    <a routerLink="/annonces/new/create" class="btn-cta">Publier la première</a>
+  </div>
+
+</main>

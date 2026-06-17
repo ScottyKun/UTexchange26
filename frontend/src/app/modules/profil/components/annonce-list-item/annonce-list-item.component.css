@@ -1,0 +1,9 @@
+.annonce-item { display:flex; align-items:center; gap:12px; padding:10px; text-decoration:none; border-radius:10px; transition:background .15s; }
+.annonce-item:hover { background:#f0f6ff; }
+.item-img { width:56px; height:42px; object-fit:cover; border-radius:8px; background:#f3f4f6; flex-shrink:0; }
+.item-info { flex:1; min-width:0; }
+.item-title { font-size:13px; font-weight:600; color:#1e293b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.item-price { font-size:12px; font-weight:700; color:#0056b3; }
+.item-status { padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; }
+.status-active { background:#d1fae5; color:#059669; }
+.status-vendu  { background:#dbeafe; color:#1d4ed8; }
