@@ -1,0 +1,341 @@
+{
+  "intents": [
+    {
+      "tag": "salutation",
+      "patterns": [
+        "Salut",
+        "Salut Michele",
+        "Bonjour",
+        "Bonjour Michele",
+        "salut",
+        "Hey",
+        "Coucou",
+        "Coucou Michele",
+        "Bonsoir",
+        "Hello",
+        "Hi",
+        "Yo",
+        "Cc"
+      ],
+      "responses": [
+        "Bonjour ! Comment puis-je t'aider ?",
+        "Salut ! Je suis là pour t'aider.",
+        "Hey ! Que puis-je faire pour toi ?",
+        "Bonjour ! Pose-moi tes questions."
+      ]
+    },
+    {
+      "tag": "au_revoir",
+      "patterns": [
+        "Au revoir",
+        "Bye",
+        "À plus",
+        "À bientôt",
+        "Salut",
+        "Ciao",
+        "Tchao",
+        "À plus tard",
+        "See you"
+      ],
+      "responses": [
+        "Au revoir ! À bientôt !",
+        "Bye ! N'hésite pas à revenir !",
+        "À plus ! Bonne journée !",
+        "Au revoir ! Prends soin de toi !"
+      ]
+    },
+    {
+      "tag": "remerciement",
+      "patterns": [
+        "Merci",
+        "ok",
+        "OK",
+        "Merci beaucoup",
+        "Merci bien",
+        "Thanks",
+        "Thank you",
+        "Super merci",
+        "C'est gentil",
+        "Merci pour ton aide"
+      ],
+      "responses": [
+        "De rien ! Je suis là pour ça.",
+        "Avec plaisir !",
+        "Pas de problème !",
+        "Heureux de t'aider !"
+      ]
+    },
+    {
+      "tag": "nom_bot",
+      "patterns": [
+        "Comment tu t'appelles ?",
+        "Quel est ton nom ?",
+        "Qui es-tu ?",
+        "Tu es qui ?",
+        "C'est quoi ton nom ?",
+        "Ton nom ?",
+        "Comment on t'appelle ?"
+      ],
+      "responses": [
+        "Je suis Michele le chatbot d'UTexchange !",
+        "On m'appelle le chatbot UTexchange, mais appelle moi Michele.",
+        "Je suis Michele ton assistant virtuel UTexchange.",
+        "Mon nom est Michele, ravi de te parler !"
+      ]
+    },
+    {
+      "tag": "aide",
+      "patterns": [
+        "Tu peux m'aider ?",
+        "J'ai besoin d'aide",
+        "Aide-moi",
+        "Help",
+        "Je ne comprends pas",
+        "Je suis perdu",
+        "Comment ça marche ?",
+        "Explique-moi"
+      ],
+      "responses": [
+        "Bien sûr ! Pose-moi ta question et je ferai de mon mieux pour t'aider.",
+        "Je suis là pour ça ! Dis-moi ce dont tu as besoin.",
+        "Aucun problème ! Que veux-tu savoir ?",
+        "Je t'écoute, comment puis-je t'aider ?"
+      ]
+    },
+    {
+      "tag": "blague",
+      "patterns": [
+        "Raconte une blague",
+        "Fais-moi rire",
+        "Tu connais des blagues ?",
+        "Dis-moi une blague",
+        "Blague",
+        "Joke",
+        "Tu es drôle ?"
+      ],
+      "responses": [
+        "Pourquoi les plongeurs plongent toujours en arrière ? Parce que sinon ils tombent dans le bateau ! 😄",
+        "sans moi paris est Pris ! qui suis-je ?  Je suis A😂",
+        "Qu'est-ce qu'un crocodile qui surveille la pharmacie ? Un Lacoste garde ! 🐊",
+        "Qu'est-ce qu'un canif ? Un petit fien ! 😂",
+        "Comment appelle-t-on un chat tombé dans un pot de peinture le jour de Noël ? Un chat-peint de Noël ! 🎄"
+      ]
+    },
+    {
+      "tag": "capacites",
+      "patterns": [
+        "Que peux-tu faire ?",
+        "Quelles sont tes capacités ?",
+        "Tu fais quoi ?",
+        "À quoi tu sers ?",
+        "tu sers à quoi ?",
+        "Qu'est-ce que tu sais faire ?",
+        "Tu peux faire quoi ?",
+        "Tes fonctions ?"
+      ],
+      "responses": [
+        "Je peux répondre à tes questions sur UTexchange, t'aider avec des informations sur la navigation du site et discuter avec toi !",
+        "Je suis là pour t'assister sur UTexchange. Pose-moi des questions !",
+        "Je peux t'aider avec des infos, répondre à tes questions et plus encore !",
+        "Je suis un assistant virtuel. Demande-moi ce que tu veux savoir !"
+      ]
+    },
+    {
+      "tag": "utexchange_info",
+      "patterns": [
+        "C'est quoi UTexchange ?",
+        "c'est quoi UTexchange ?",
+        "c'est quoi utexchange ?",
+        "pourquoi utexchange",
+        "Parle-moi d'UTexchange",
+        "Qu'est-ce qu'UTexchange ?",
+        "UTexchange c'est quoi ?",
+        "Explique UTexchange",
+        "Info sur UTexchange"
+      ],
+      "responses": [
+        "UTexchange est le sites de petites annonces du groupe des UT : il s'y passe des trocs, des ventes, des annonces et opportunités entre étudiants et aussi avec l'administration de l'UTBM. Nous somme en collaboration avec l'AE et Le service de la vie étudiante de l'UTBM. Que veux-tu savoir exactement ?",
+        "UTexchange est une plateforme d'échange un peu comme leboncoin, mais uniquement circonscrit au groupe UT. Je peux t'en dire plus si tu as des questions précises !",
+        "C'est la plateforme sur laquelle tu te trouves ! Pose-moi des questions spécifiques."
+      ]
+    },
+    {
+      "tag": "incompris",
+      "patterns": [
+        "Je ne comprends pas",
+        "C'est confus",
+        "Explique mieux",
+        "Je ne saisis pas",
+        "C'est pas clair",
+        "Hein ?",
+        "Quoi ?",
+        "Comment ?"
+      ],
+      "responses": [
+        "Désolé si je n'étais pas clair. Peux-tu reformuler ta question ?",
+        "Je vais essayer d'être plus précis. Que veux-tu savoir exactement ?",
+        "Excuse-moi ! Pose ta question différemment et je vais essayer de mieux répondre.",
+        "Pardon pour la confusion. Dis-moi autrement ce que tu cherches !"
+      ]
+    },
+    {
+      "tag": "humeur",
+      "patterns": [
+        "Comment vas-tu ?",
+        "Ça va ?",
+        "Tu vas bien ?",
+        "Comment tu te sens ?",
+        "Quoi de neuf ?",
+        "Comment ça va ?"
+      ],
+      "responses": [
+        "Je vais très bien, merci ! Et toi ?",
+        "Super ! Je suis prêt à t'aider. Comment vas-tu ?",
+        "Ça va bien ! Que puis-je faire pour toi aujourd'hui ?",
+        "Je me sens en pleine forme ! Et toi, comment ça va ?"
+      ]
+    },
+    {
+      "tag": "default",
+      "patterns": [
+        "autre chose",
+        "je ne sais pas",
+        "peu importe"
+      ],
+      "responses": [
+        "Je ne suis pas sûr de comprendre. Peux-tu reformuler ?",
+        "Hmm, je n'ai pas compris. Pose ta question autrement !",
+        "Désolé, je n'ai pas la réponse à ça. Essaye de reformuler !",
+        "Je ne comprends pas bien. Peux-tu être plus précis ?"
+      ]
+    },
+    {
+      "tag":"annonce",
+      "patterns": [
+  "comment poser une annonce ?",
+  "annonces",
+  "annonce",
+  "où poser les annonces ?",
+  "je veux voir les annonces ?",
+  "page des annonces ?",
+  "poser des annonces ?"
+  ],
+  "responses": [
+    "Pour poser une annonce, veuillez vous connecter et cliquer sur ce lien : <a href='/annonce/create' class='chat-link'>Déposer</a>."
+
+  ]
+    },
+    {
+      "tag": "profil",
+      "patterns":[
+            "comment modifier mon profil?",
+            "modifier mon profil"
+      ],
+      "responses":[
+         "Il te suffit de cliquer sur Mon compte "
+      ]
+    },
+    {
+      "tag":"modfier_annonce",
+      "patterns": [
+        "comment modifier une annonce?",
+        "modifier une annonce",
+        "où modifier les annonces ?",
+        "je veux modifier les annonces ?",
+        "page des modifications de annonces ?",
+        "modification poser des annonces ?"
+      ],
+      "responses": [
+        "Pour modifier une annonce, veuillez cliquer sur ce lien et ensuite tu cliques sur ton annonce : <a href='/myAnnonces' class='chat-link'>Mes annonces</a>"
+
+      ]
+    },
+    {
+      "tag":"voir_annonce",
+      "patterns": [
+        "comment voir mes une annonce?",
+        "comment voir mes une annonce?",
+        "revoir mon annonce",
+        "revoir mes annonce",
+        "voir mes annonces",
+        "voir les annonces",
+        "où modifier les annonces ?",
+        "où modifier mes annonces ?",
+        "je veux voir mes annonces ?",
+        "page pour voir mes annonces ?",
+        "page pour voir mon annonces ?",
+        "voir  des annonces ?"
+      ],
+      "responses": [
+        "Pour revoir vos annonces, veuillez cliquer sur ce lien : <a href='/myAnnonces' class='chat-link'>Voir mes annonces</a>"
+
+      ]
+    },
+    {
+      "tag": "Michele",
+      "patterns":[
+        "pourquoi on t'appelle michele?", "pourquoi michele ?", "qui t'a donné ce nom ", "pourquoi ce nom ?",
+        "c'est quoi ce nom, michele ?"
+      ],
+      "responses":[
+        "Michele fait partie des fondateurs de ce projet, et c'est la seule fille du groupe, alors on a décidé de nommer le chatbot Michele en son honneur !"
+      ]
+    },
+
+    {
+
+      "tag": "equipe",
+
+      "patterns":[
+
+        "qui ont developpé ce site", "qui sont les developpeurs de ce site?","qui a eu cette idée?",
+
+        "qui sont les propriétaire de ce projet ", "qui on developpé utexchange ?", "qui sont les membre de ce projet", "quels sont les membre du groupe"
+
+      ],
+
+      "responses":[
+
+        "Les membres de ce groupe sont :\n<a href='https://www.linkedin.com/in/junior-angambun-019b312a1/' class='chat-link'> -Junior Angambun </a>,\n<a href='https://www.linkedin.com/in/daryl-dedzo-a8a051304/' class='chat-link'> -Andy Daryl DEDZO TSAPI</a>,\n -<a href='https://www.linkedin.com/in/michele-ande-tchinda-07bb72385/' class='chat-link'> Michele ANDE TCHINDA</a>,\n -Jordan SODJINOU"
+
+      ]
+
+    },
+
+    {
+      "tag": "créateur",
+      "patterns":[
+        "qui est ton créateur?", "qui t'a codé", "qui t'a créé", "et c'est qui ton créateur?", "c'est qui?"
+      ],
+      "responses":[
+        "Mon créateur s'appelle Junior, pour en savoir plus sur lui clique ici :<a href='https://www.linkedin.com/in/junior-angambun-019b312a1/' class='chat-link'>Junior A</a> ", "C'est Junior, un Quantum Machine learning Enginneer"
+      ]
+    },
+
+
+    {
+      "tag": "categories",
+      "patterns" : [
+        "quelles sont les différentes catégories ?",
+        "les catégories",
+        "categories",
+        "catégorie"
+      ],
+      "responses" :[
+        "Les catégories sont visibles sur la page d'accueil, mais je peux énumérer quelques unes :\nHigh Tech -\n -Don\n -Emploi\n -Services\n -Autres"
+       ]
+    },
+    {
+      "tag":"utbm",
+      "patterns":[
+        "utbm", "UTBM", "parles moi de l'école", "parles du campus", "c'est quoi l'UTBM", "université de technologie de Belfort-Montbéliard",
+        "Université de Technologie de Belfort-Montbéliard","Université de technologie de Belfort-Montbéliard",
+        "université de technologie de belfort-montbéliard","université de technologie de belfort-montbeliard",
+        "université de technologie de belfort montbeliard","université de technologie de Belfort Montbéliard",
+        "Université de Technologie de Belfort Montbéliard","universite de technologie de Belfort-Montbeliard",
+        "université de technologie de Belfort-Montbéliard","c'est quoi l'université de technologie de Belfort-Montbéliard ?"
+      ],
+      "responses": ["L'UTBM est une école d'ingénieur <a href='https://www.groupe-ut.fr/' class='chat-link'>du groupe des UT</a> constituée de trois campus:\n-Sevenan: Pour le TC et mécanique, \n-Belfort: Pour l'informatique et l'énergie, \n-Montbéliard: Pour l'ergonomie et le design"]
+    }
+  ]
+}

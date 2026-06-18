@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Environnement
+.env
+.env.local
+
+# Modèles entraînés (peuvent être lourds)
+*.pth
+*.pt
+*.bin
+
+# Data
+data/processed/
+data/raw/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
