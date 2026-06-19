@@ -1,0 +1,44 @@
+<div class="message-wrap" [class.mine]="isMine">
+
+  <div class="bubble" *ngIf="!isEditing">
+
+    <p class="bubble-text">{{ message.contenu }}</p>
+
+    <span class="bubble-time">
+      {{ message.created_at | date:'HH:mm' }}
+    </span>
+
+    <!-- ACTIONS -->
+    <div
+      class="actions"
+      *ngIf="isMine && conversationStatus !== 'terminee'"
+    >
+      <button class="btn-edit" (click)="edit()">
+        <i class="fa-solid fa-pen"></i>
+      </button>
+
+      <button class="btn-delete" (click)="delete()">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- EDIT MODE -->
+  <div class="bubble editing" *ngIf="isEditing">
+
+    <textarea [(ngModel)]="editedContent"></textarea>
+
+    <div class="actions">
+      <button class="btn-save" (click)="saveEdit()">
+        <i class="fa-solid fa-check"></i>
+      </button>
+
+      <button class="btn-cancel" (click)="cancelEdit()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+  </div>
+
+</div>

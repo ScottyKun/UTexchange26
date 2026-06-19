@@ -1,0 +1,316 @@
+/* =========================
+   PAGE WRAPPER
+========================= */
+
+.fil-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 60px;
+  padding: 0 20px 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  height: calc(100vh - 120px);
+  min-height: 0; /* CRUCIAL FIX */
+  gap: 12px;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+  color: #9ca3af;
+}
+
+/* =========================
+   LAYOUT 2 COLONNES
+========================= */
+
+.content-layout {
+  display: flex;
+  gap: 16px;
+
+  flex: 1;
+  min-height: 0; /* CRUCIAL */
+  overflow: hidden;
+}
+
+/* =========================
+   CHAT COLUMN (GAUCHE)
+========================= */
+
+.chat-column {
+  flex: 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  min-height: 0; /* CRUCIAL */
+  overflow: hidden;
+}
+
+/* =========================
+   HEADER CHAT
+========================= */
+
+.conv-header-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+  background: #fff;
+
+  border: 1.5px solid #f0f0f0;
+  border-radius: 12px;
+}
+
+/* =========================
+   MESSAGES BOX
+========================= */
+
+.messages-card {
+  background: #fff;
+  border: 1.5px solid #f0f0f0;
+  border-radius: 12px;
+  flex: none;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.messages-scroll {
+  flex: 1;
+  min-height: 0; /* CRUCIAL */
+
+  overflow-y: auto;
+
+  padding: 12px 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* messages spacing */
+.message-item {
+  margin-bottom: 0;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.input-area {
+  display: flex;
+  gap: 8px;
+
+  padding-top: 12px;
+  border-top: 1.5px solid #f0f0f0;
+
+  align-items: flex-end;
+}
+
+.input-area textarea {
+  flex: 1;
+
+  padding: 10px 14px;
+
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-family: inherit;
+
+  resize: none;
+  outline: none;
+}
+
+.input-area textarea:focus {
+  border-color: #0056b3;
+}
+
+.send-btn {
+  padding: 12px 16px;
+
+  background: #0056b3;
+  color: #fff;
+
+  border: none;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+}
+
+/* =========================
+   AVIS SIDEBAR (DROITE)
+========================= */
+
+.avis-sidebar {
+  flex: 1;
+  min-width: 280px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  min-height: 0;
+}
+
+/* card */
+.avis-card {
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-radius: 12px;
+
+  padding: 12px;
+}
+
+.avis-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #d97706;
+  margin-bottom: 10px;
+}
+
+.avis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* item */
+.avis-item {
+  background: #fff;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  border-left: 3px solid #f59e0b;
+}
+
+/* stars */
+.avis-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 13px;
+  color: #f59e0b;
+}
+
+.avis-stars i {
+  font-size: 14px;
+}
+
+.avis-note-text {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: 6px;
+}
+
+/* users */
+.avis-users {
+  font-size: 11px;
+  color: #9ca3af;
+
+  margin-top: 4px;
+}
+
+/* comment */
+.avis-comment {
+  margin-top: 6px;
+
+  font-size: 13px;
+  color: #374151;
+
+  line-height: 1.4;
+}
+
+/* =========================
+   AVIS CTA
+========================= */
+
+.avis-cta {
+  padding: 12px;
+
+  border: 1.5px solid #f0f0f0;
+  border-radius: 12px;
+
+  background: #fff;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .content-layout {
+    flex-direction: column;
+  }
+
+  .avis-sidebar {
+    min-width: 100%;
+  }
+}
+
+.back-btn {
+  color: #374151;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.back-btn:hover {
+  background: #e5e7eb;
+}
+
+.header-info {
+  flex: 1;
+}
+
+.header-partner {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1e293b;
+}
+
+.header-annonce {
+  font-size: 11.5px;
+  color: #9ca3af;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-active {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.status-terminee {
+  background: #f3f4f6;
+  color: #892424;
+}

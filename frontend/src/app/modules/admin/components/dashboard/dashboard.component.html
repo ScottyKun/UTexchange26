@@ -1,0 +1,38 @@
+<div class="page-container">
+  <h2 class="page-title"><i class="fa-solid fa-gauge-high"></i> Tableau de bord Admin</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <p class="stat-value" style="color:#0056b3;">{{ stats.users }}</p>
+      <p class="stat-label"><i class="fa-solid fa-users"></i> Utilisateurs</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-value" style="color:#059669;">{{ stats.annonces }}</p>
+      <p class="stat-label"><i class="fa-solid fa-list"></i> Annonces actives</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-value" style="color:#f59e0b;">{{ stats.conversations }}</p>
+      <p class="stat-label"><i class="fa-regular fa-comment-dots"></i> Conversations</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-value" style="color:#ef4444;">{{ stats.signalees }}</p>
+      <p class="stat-label"><i class="fa-solid fa-flag"></i> Annonces signalées</p>
+    </div>
+  </div>
+
+  <!-- Raccourcis admin -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+    <a routerLink="/admin/users" class="btn-secondary" style="display:flex;align-items:center;gap:8px;text-decoration:none;padding:14px 18px;justify-content:center;">
+      <i class="fa-solid fa-users" style="color:#0056b3;"></i> Gérer les utilisateurs
+    </a>
+    <a routerLink="/admin/annonces" class="btn-secondary" style="display:flex;align-items:center;gap:8px;text-decoration:none;padding:14px 18px;justify-content:center;">
+      <i class="fa-solid fa-list" style="color:#059669;"></i> Gérer les annonces
+    </a>
+    <a routerLink="/admin/categories" class="btn-secondary" style="display:flex;align-items:center;gap:8px;text-decoration:none;padding:14px 18px;justify-content:center;">
+      <i class="fa-solid fa-tags" style="color:#8b5cf6;"></i> Gérer les catégories
+    </a>
+    <a routerLink="/admin/avis" class="btn-secondary" style="display:flex;align-items:center;gap:8px;text-decoration:none;padding:14px 18px;justify-content:center;">
+      <i class="fa-solid fa-star" style="color:#f59e0b;"></i> Gérer les avis
+    </a>
+  </div>
+</div>

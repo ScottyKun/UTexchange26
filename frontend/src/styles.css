@@ -1,0 +1,420 @@
+/* Directives obligatoires pour Tailwind v3 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tes imports de polices et d'icônes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+/* Tes styles globaux */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+/* ============================================================
+   STYLES GLOBAUX : Home + Annonce-card + Dashboard + Categories
+   ============================================================ */
+
+.main-content {
+  max-width: 1260px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 28px 20px 56px;
+  flex: 1;
+}
+
+.page-container {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 28px 20px 56px;
+  flex: 1;
+}
+
+.page-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title i { color: #0056b3; }
+
+/* ===== HERO BANNER ===== */
+.hero-banner {
+  background: linear-gradient(135deg, #0056b3 0%, #004a99 100%);
+  border-radius: 18px;
+  padding: 36px 40px;
+  margin-bottom: 36px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
+
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; right: 80px;
+  width: 160px; height: 160px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+
+.hero-banner h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+.hero-banner p {
+  opacity: 0.85;
+  font-size: 14px;
+  margin-bottom: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-hero {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  padding: 10px 22px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-hero:hover { background: rgba(255,255,255,0.25); color: white; }
+
+/* ===== SECTION ANNONCES ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.section-header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-header h2 i { color: #0056b3; font-size: 1rem; }
+
+.see-more {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0056b3;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: opacity 0.15s;
+}
+
+.see-more:hover { opacity: 0.7; }
+
+.section-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-behavior: smooth;
+}
+
+.section-scroll::-webkit-scrollbar { height: 4px; }
+.section-scroll::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
+
+/* ===== ANNONCE CARD ===== */
+.annonce-card-h {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  flex-shrink: 0;
+  width: 210px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.annonce-card-h:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+
+.annonce-card-h__img {
+  height: 150px;
+  background: #f4f6f8;
+  overflow: hidden;
+  position: relative;
+}
+
+.annonce-card-h__img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.annonce-card-h__placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d1d5db;
+  font-size: 2rem;
+}
+
+.annonce-card-h__body { padding: 11px 13px 13px; }
+
+.annonce-card-h__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+.annonce-card-h__loc {
+  font-size: 11px;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 6px;
+}
+
+.annonce-card-h__price {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0056b3;
+}
+
+.annonce-card-h__price--free { color: #059669; }
+.annonce-card-h__price--troc { color: #4c1d95; }
+
+.badge-gratuit {
+  position: absolute;
+  top: 8px; left: 8px;
+  background: #d1fae5; color: #065f46;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.badge-troc {
+  position: absolute;
+  top: 8px; left: 8px;
+  background: #ede9fe; color: #4c1d95;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.voir-tout-card {
+  width: 140px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border: 2px dashed #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.voir-tout-card:hover { border-color: #0056b3; color: #0056b3; }
+.voir-tout-card i { font-size: 1.4rem; }
+
+.empty-state { text-align: center; padding: 80px 0; color: #9ca3af; }
+.empty-state i { font-size: 3rem; display: block; margin-bottom: 16px; opacity: 0.4; }
+
+/* ===== FORMULAIRES ===== */
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+  padding: 32px;
+  max-width: 640px;
+  margin: 0 auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.form-group { margin-bottom: 20px; }
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #111;
+  background: #f9fafb;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.form-control:focus { border-color: #0056b3; background: #fff; }
+
+.btn-primary {
+  background: #0056b3;
+  color: white;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.btn-primary:hover { background: #004a99; }
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  padding: 11px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-secondary:hover { background: #e5e7eb; }
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.btn-danger:hover { background: #dc2626; }
+
+/* ===== TABLES ADMIN ===== */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.admin-table th {
+  background: #0056b3;
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 13px;
+  color: #374151;
+}
+
+.admin-table tr:hover td { background: #f9fafb; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-active { background: #d1fae5; color: #065f46; }
+.badge-vendu  { background: #fee2e2; color: #991b1b; }
+.badge-draft  { background: #f3f4f6; color: #6b7280; }
+
+/* ===== DASHBOARD ADMIN ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-card .stat-value {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0056b3;
+}
+
+.stat-card .stat-label { font-size: 12px; color: #9ca3af; margin-top: 4px; }

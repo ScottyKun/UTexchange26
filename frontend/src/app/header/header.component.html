@@ -1,0 +1,79 @@
+<header class="main-header">
+  <div class="header-wrapper">
+
+    <!-- Logo -->
+    <div class="logo-area">
+      <a routerLink="/home" class="logo-link">
+        <h1 class="logo-text">UTexCHANGE</h1>
+      </a>
+    </div>
+
+    <!-- Droite -->
+    <div class="header-right-side">
+
+      <a routerLink="/annonces/new/create" class="btn-deposer">
+        <i class="fa-solid fa-square-plus"></i>
+        <span>Déposer une annonce</span>
+      </a>
+
+      <!-- Recherche -->
+      <form class="search-container" (ngSubmit)="onSearch()">
+        <input
+          type="text"
+          name="search"
+          [(ngModel)]="searchQuery"
+          placeholder="Rechercher sur UTexchange"
+        />
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+
+      <!-- Navigation utilisateur -->
+      <nav class="user-nav">
+
+        <!-- Connecté -->
+        <ng-container *ngIf="isAuthenticated(); else notLoggedIn">
+
+          <a routerLink="/annonces/user/favoris" class="nav-item">
+            <i class="fa-regular fa-heart"></i>
+            <span>Favoris</span>
+          </a>
+
+          <a routerLink="/conversations" class="nav-item msg-item">
+            <i class="fa-regular fa-comment-dots"></i>
+            <span>Messages</span>
+            <span class="unread-badge" *ngIf="unreadCount > 0">
+              {{ unreadCount }}
+            </span>
+          </a>
+
+          <a routerLink="/profil" class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Mon compte</span>
+          </a>
+
+          <a *ngIf="isAdmin()" routerLink="/admin" class="nav-item nav-item--admin">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Admin</span>
+          </a>
+
+          <button class="nav-item" (click)="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Déconnexion</span>
+          </button>
+
+        </ng-container>
+
+        <!-- Non connecté -->
+        <ng-template #notLoggedIn>
+          <a routerLink="/login" class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Se connecter</span>
+          </a>
+        </ng-template>
+
+      </nav>
+    </div>
+  </div>
+</header>

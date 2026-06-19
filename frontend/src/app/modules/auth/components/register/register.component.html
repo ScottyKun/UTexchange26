@@ -1,0 +1,57 @@
+<div class="auth-page">
+  <div class="auth-card">
+     <p class="modal-title">Rejoignez la communauté</p>
+
+    <div *ngIf="errorMsg"   class="alert alert-error">  <i class="fa-solid fa-circle-exclamation"></i> {{ errorMsg }}   </div>
+    <div *ngIf="successMsg" class="alert alert-success"><i class="fa-solid fa-circle-check"></i>       {{ successMsg }} </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="modal-field-row">
+        <div class="modal-field">
+          <label>Prénom</label>
+          <input type="text" formControlName="prenom" placeholder="Jean"
+                 [class.is-invalid]="f['prenom'].invalid && f['prenom'].touched"/>
+          <div class="field-error" *ngIf="f['prenom'].errors?.['required'] && f['prenom'].touched">Requis</div>
+        </div>
+        <div class="modal-field">
+          <label>Nom</label>
+          <input type="text" formControlName="nom" placeholder="Dupont"
+                 [class.is-invalid]="f['nom'].invalid && f['nom'].touched"/>
+          <div class="field-error" *ngIf="f['nom'].errors?.['required'] && f['nom'].touched">Requis</div>
+        </div>
+      </div>
+
+      <div class="modal-field">
+        <label>Adresse e-mail universitaire</label>
+        <input type="email" formControlName="email" placeholder="jean.dupont@utbm.fr"
+               [class.is-invalid]="f['email'].invalid && f['email'].touched"/>
+        <div class="field-error" *ngIf="f['email'].errors?.['required'] && f['email'].touched">Requis</div>
+        <div class="field-error" *ngIf="f['email'].errors?.['email'] && f['email'].touched">Format invalide</div>
+      </div>
+
+      <div class="modal-field">
+        <label>Campus</label>
+        <select formControlName="campus" [class.is-invalid]="f['campus'].invalid && f['campus'].touched">
+          <option value="">-- Sélectionner --</option>
+          <option *ngFor="let c of campusList" [value]="c">{{ c }}</option>
+        </select>
+        <div class="field-error" *ngIf="f['campus'].errors?.['required'] && f['campus'].touched">Requis</div>
+      </div>
+
+      <div class="modal-field">
+        <label>Mot de passe</label>
+        <input type="password" formControlName="password" placeholder="8 caractères minimum"
+               [class.is-invalid]="f['password'].invalid && f['password'].touched"/>
+        <div class="field-error" *ngIf="f['password'].errors?.['minlength'] && f['password'].touched">8 caractères minimum</div>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loading">
+        <span *ngIf="loading"><i class="fa-solid fa-spinner fa-spin"></i> Inscription…</span>
+        <span *ngIf="!loading">Créer mon compte</span>
+      </button>
+    </form>
+
+    <p class="auth-footer">Déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+  </div>
+</div>

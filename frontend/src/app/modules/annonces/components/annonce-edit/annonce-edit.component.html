@@ -1,0 +1,118 @@
+<div class="form-page">
+  <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
+
+  <div *ngIf="!loading && annonce" class="form-card">
+    <h1 class="form-title"><i class="fa-solid fa-pen"></i> Modifier l'annonce</h1>
+
+    <div *ngIf="errorMsg" class="alert alert-error">{{ errorMsg }}</div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="form-group">
+        <label>Titre *</label>
+        <input type="text" formControlName="title"
+               [class.is-invalid]="f['title'].invalid && f['title'].touched"/>
+      </div>
+
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea formControlName="description" rows="5"
+                  [class.is-invalid]="f['description'].invalid && f['description'].touched"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Type</label>
+          <select formControlName="type">
+            <option value="vente">Vente</option>
+            <option value="location">Location</option>
+            <option value="don">Don</option>
+            <option value="troc">Troc</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Prix (€)</label>
+          <input type="number" formControlName="price" min="0"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Catégorie *</label>
+          <select formControlName="categorie_id">
+            <option *ngFor="let c of categories" [value]="c.id">{{ c.nom }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Localisation</label>
+          <input type="text" formControlName="location"/>
+        </div>
+      </div>
+
+      <!-- Photos existantes -->
+      <div class="form-group" *ngIf="annonce.photos.length > 0">
+        <label>Photos actuelles</label>
+        <div class="photo-grid">
+          <div *ngFor="let p of annonce.photos" class="photo-thumb">
+            <img [src]="'http://localhost:8000/api/photos/' + annonce.id + '/' + p.nom_fichier" [alt]="p.nom_fichier"/>
+            <button type="button" class="photo-delete" (click)="deletePhoto(p.id)">&times;</button>
+          </div>
+        </div>
+      </div>
+
+       <div class="mb-7">
+
+  <label class="block text-sm font-semibold text-gray-600 mb-2">
+    Photos
+  </label>
+
+      <!-- DROP ZONE -->
+      <div
+        class="drop-zone"
+        (click)="fileInput.click()"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)"
+      >
+
+          <i class="fa-solid fa-cloud-arrow-up icon"></i>
+
+          <p>
+            Glissez vos images ici ou cliquez pour sélectionner
+          </p>
+
+          <input
+            #fileInput
+            type="file"
+            multiple
+            accept="image/*"
+            hidden
+            (change)="onFilesChange($event)"
+          />
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="photo-preview" *ngIf="selectedFiles.length > 0">
+
+          <div class="photo-item" *ngFor="let file of selectedFiles; let i = index">
+            <img [src]="getPreview(file)" />
+            <button type="button" (click)="removeFile(i)">×</button>
+          </div>
+
+        </div>
+
+        <p class="hint" *ngIf="selectedFiles.length > 0">
+          {{ selectedFiles.length }} photo(s) sélectionnée(s)
+        </p>
+
+      </div>
+
+      <div class="form-actions">
+        <a [routerLink]="['/annonces', annonce.id]" class="btn-secondary">Annuler</a>
+        <button type="submit" class="btn-primary" [disabled]="saving">
+          <span *ngIf="saving"><i class="fa-solid fa-spinner fa-spin"></i> Sauvegarde…</span>
+          <span *ngIf="!saving">Enregistrer</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

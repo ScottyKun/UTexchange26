@@ -1,0 +1,49 @@
+<div class="page-container">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+    <h2 class="page-title" style="margin-bottom:0;"><i class="fa-solid fa-tags"></i> Catégories</h2>
+    <button class="btn-primary" (click)="showForm = !showForm">
+      <i class="fa-solid fa-plus"></i> Nouvelle catégorie
+    </button>
+  </div>
+
+  <!-- Formulaire ajout -->
+  <div class="form-card" style="margin-bottom:24px;max-width:480px;" *ngIf="showForm">
+    <form (ngSubmit)="onCreate()">
+      <div class="form-group">
+        <label>Nom de la catégorie</label>
+        <input type="text" class="form-control" [(ngModel)]="newNom" name="nom" placeholder="Ex : Informatique" required>
+      </div>
+      <div class="form-group">
+        <label>Catégorie parente (optionnel)</label>
+        <select class="form-control" [(ngModel)]="newParentId" name="parent_id">
+          <option [value]="null">Aucune (catégorie principale)</option>
+          <option [value]="cat.id" *ngFor="let cat of categories">{{ cat.nom }}</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button type="submit" class="btn-primary">Créer</button>
+        <button type="button" class="btn-secondary" (click)="showForm = false">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="loading" style="text-align:center;padding:40px;color:#9ca3af;"><i class="fa-solid fa-circle-notch fa-spin" style="font-size:2rem;"></i></div>
+
+  <table class="admin-table" *ngIf="!loading">
+    <thead><tr><th>ID</th><th>Nom</th><th>Parente</th><th>Statut</th><th>Actions</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let cat of categories">
+        <td>{{ cat.id }}</td>
+        <td>{{ cat.nom }}</td>
+        <td>{{ getParentNom(cat.parent_id) }}</td>
+        <td><span class="badge" [ngClass]="cat.is_active ? 'badge-active' : 'badge-vendu'">{{ cat.is_active ? 'Active' : 'Inactive' }}</span></td>
+        <td style="display:flex;gap:6px;">
+          <button class="btn-secondary" style="padding:4px 10px;font-size:11px;" (click)="toggle(cat)">
+            {{ cat.is_active ? 'Désactiver' : 'Activer' }}
+          </button>
+          <button class="btn-danger" style="padding:4px 10px;font-size:11px;" (click)="delete(cat.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,54 @@
+<nav class="categories-nav">
+  <ul>
+
+    <!-- Tout -->
+    <li>
+      <a routerLink="/annonces"
+         class="cat-link"
+         [class.active-all]="isAllActive()">
+        <i class="fa-solid fa-border-all"></i>
+        Tout
+      </a>
+    </li>
+
+    <!-- Dons -->
+    <li>
+      <a routerLink="/annonces"
+         [queryParams]="{ type: 'don' }"
+         class="cat-link don-link"
+         [class.active-don]="isDonActive()">
+        <i class="fa-solid fa-gift"></i>
+        Dons
+      </a>
+    </li>
+
+    <!-- Catégories dynamiques avec dropdowns -->
+    <li class="nav-cat-item" *ngFor="let cat of categories">
+
+      <a routerLink="/annonces"
+         [queryParams]="{ cat_id: cat.id }"
+         class="cat-link"
+         [class.active-cat]="isCatActive(cat)">
+        {{ cat.nom }}
+        <i *ngIf="cat.enfants && cat.enfants.length > 0"
+           class="fa-solid fa-chevron-down"
+           style="font-size:8px;color:#9ca3af;margin-left:2px;"></i>
+      </a>
+
+      <!-- Dropdown sous-catégories -->
+      <div class="nav-dropdown" *ngIf="cat.enfants && cat.enfants.length > 0">
+        <a *ngFor="let enfant of cat.enfants"
+           routerLink="/annonces"
+           [queryParams]="{ cat_id: enfant.id }"
+           class="dropdown-link"
+           [class.active]="isChildActive(enfant.id)">
+          <span class="dropdown-dot"
+                [style.background]="isChildActive(enfant.id) ? '#0056b3' : '#d1d5db'">
+          </span>
+          {{ enfant.nom }}
+        </a>
+      </div>
+
+    </li>
+  </ul>
+</nav>

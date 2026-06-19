@@ -1,0 +1,55 @@
+<section style="margin-bottom:40px;" *ngIf="section.annonces.length > 0">
+
+  <!-- En-tête de section -->
+  <div class="section-header">
+    <h2>
+      <i *ngIf="section.icone" class="fa-solid {{ section.icone }}"></i>
+      {{ section.nom }}
+    </h2>
+    <a routerLink="/annonces"
+       [queryParams]="{ cat_id: section.id }"
+       class="see-more">
+      Voir plus <i class="fa-solid fa-arrow-right" style="font-size:10px;"></i>
+    </a>
+  </div>
+
+  <!-- Scroll horizontal -->
+  <div class="section-scroll">
+
+    <a *ngFor="let annonce of section.annonces"
+       [routerLink]="['/annonces', annonce.id]"
+       class="annonce-card-h">
+
+      <!-- Image -->
+      <div class="annonce-card-h__img">
+        <div class="annonce-card-h__placeholder">
+          <i class="fa-regular fa-image"></i>
+        </div>
+        <span *ngIf="annonce.type === 'don'"  class="badge-gratuit">Gratuit</span>
+        <span *ngIf="annonce.type === 'troc'" class="badge-troc">Troc</span>
+      </div>
+
+      <!-- Corps -->
+      <div class="annonce-card-h__body">
+        <p class="annonce-card-h__title">{{ annonce.title }}</p>
+        <p class="annonce-card-h__loc">
+          <i class="fa-solid fa-location-dot" style="font-size:9px;"></i>
+          {{ annonce.location }}
+        </p>
+        <p [ngClass]="priceClass(annonce)">
+          {{ formatPrice(annonce) }}
+        </p>
+      </div>
+
+    </a>
+
+    <!-- Carte "Voir tout" -->
+    <a routerLink="/annonces"
+       [queryParams]="{ cat_id: section.id }"
+       class="voir-tout-card">
+      <i class="fa-solid fa-arrow-right"></i>
+      Voir tout
+    </a>
+
+  </div>
+</section>

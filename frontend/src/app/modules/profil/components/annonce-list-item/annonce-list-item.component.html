@@ -1,0 +1,8 @@
+<a [routerLink]="['/annonces', annonce.id]" class="annonce-item">
+  <img [src]="coverUrl" [alt]="annonce.title" class="item-img" loading="lazy"/>
+  <div class="item-info">
+    <p class="item-title">{{ annonce.title }}</p>
+    <p class="item-price">{{ annonce.isFree ? 'Gratuit' : (annonce.price + ' €') }}</p>
+  </div>
+  <span class="item-status status-{{ annonce.status }}">{{ annonce.status }}</span>
+</a>
