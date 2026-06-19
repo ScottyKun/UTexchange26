@@ -8,7 +8,7 @@ import { ChatbotService } from 'src/services/chatbot.service';
 })
 export class ChatbotComponent implements OnInit {
 
-  isOpen: boolean = true;
+  isOpen: boolean = false;
   userMessage: string = '';
   
   // ← AJOUTER : flag pour savoir si le dernier message vient du micro

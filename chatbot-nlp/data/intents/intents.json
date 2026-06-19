@@ -221,7 +221,7 @@
   "poser des annonces ?"
   ],
   "responses": [
-    "Pour poser une annonce, veuillez vous connecter et cliquer sur ce lien : <a href='/annonce/create' class='chat-link'>Déposer</a>."
+    "Pour poser une annonce, veuillez vous connecter et cliquer sur ce lien : <a href='/annonces/new/create' class='chat-link'>Déposer</a>."
 
   ]
     },
@@ -246,7 +246,7 @@
         "modification poser des annonces ?"
       ],
       "responses": [
-        "Pour modifier une annonce, veuillez cliquer sur ce lien et ensuite tu cliques sur ton annonce : <a href='/myAnnonces' class='chat-link'>Mes annonces</a>"
+        "Pour modifier une annonce, veuillez cliquer sur ce lien et ensuite tu cliques sur ton annonce : <a href='/annonces/user/mine' class='chat-link'>Mes annonces</a>"
 
       ]
     },
@@ -267,7 +267,7 @@
         "voir  des annonces ?"
       ],
       "responses": [
-        "Pour revoir vos annonces, veuillez cliquer sur ce lien : <a href='/myAnnonces' class='chat-link'>Voir mes annonces</a>"
+        "Pour revoir vos annonces, veuillez cliquer sur ce lien : <a href='/annonces/user/mine' class='chat-link'>Voir mes annonces</a>"
 
       ]
     },
