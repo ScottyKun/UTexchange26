@@ -1,0 +1,34 @@
+<main class="dash-main">
+
+  <!-- Header -->
+  <div class="dash-header">
+    <h1 class="dash-title">
+      <i class="fa-solid fa-gauge-high" style="color:#f59e0b;"></i>
+      Panneau Administration
+    </h1>
+    <p class="dash-sub">Bonjour <strong>{{ prenom }}</strong> — Tableau de bord</p>
+  </div>
+
+  <!-- Stats cards -->
+  
+
+  <ng-template #loader>
+    <div class="stats-grid">
+      <div class="stat-card skeleton" *ngFor="let i of [1,2,3,4]"></div>
+    </div>
+  </ng-template>
+
+  <!-- Accès rapide -->
+  <h2 class="section-title">Accès rapide</h2>
+
+  <div class="links-grid">
+    <a class="link-card" *ngFor="let l of links" [routerLink]="l.route">
+      <div class="link-icon">
+        <i class="fa-solid" [ngClass]="l.icon" [style.color]="l.color"></i>
+      </div>
+      <span class="link-label">{{ l.label }}</span>
+      <i class="fa-solid fa-chevron-right link-arrow"></i>
+    </a>
+  </div>
+
+</main>

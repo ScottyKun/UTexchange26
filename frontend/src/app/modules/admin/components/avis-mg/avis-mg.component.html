@@ -1,1 +1,111 @@
-<p>avis-mg works!</p>
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a routerLink="/admin">Admin</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <span>Avis</span>
+</div>
+
+<main class="admin-main">
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title"><i class="fa-solid fa-star" style="color:#0056b3;"></i> Gestion des avis</h1>
+      <p class="page-sub">{{ avisList.length }} avis enregistrés</p>
+    </div>
+  </div>
+
+  <div class="table-card" *ngIf="!loading; else loader">
+    <table>
+      <thead>
+        <tr>
+          <th>Auteur</th>
+          <th>Vendeur évalué</th>
+          <th>Note</th>
+          <th>Commentaire</th>
+          <th>Statut</th>
+          <th>Date</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of avisList">
+          <td class="fw-600">{{ a.acheteur_nom || '—' }}</td>
+          <td class="text-muted">{{ a.vendeur_nom || '—' }}</td>
+
+          <!-- Étoiles -->
+          <td>
+            <div class="stars">
+              <span *ngFor="let i of getStars(a.note)"
+                    [style.color]="i <= a.note ? '#facc15' : '#e5e7eb'">★</span>
+            </div>
+          </td>
+
+          <td class="commentaire text-muted">{{ a.commentaire || 'Pas de commentaire' }}</td>
+
+          <!-- Statut -->
+          <td>
+            <span class="pill" [class.pill-actif]="a.is_active" [class.pill-inactif]="!a.is_active">
+              {{ a.is_active ? 'Actif' : 'Désactivé' }}
+            </span>
+          </td>
+
+          <td class="text-muted">{{ a.created_at | date:'dd/MM/yyyy' }}</td>
+
+          <!-- Actions -->
+          <td>
+            <div class="actions">
+              <button class="btn-icon btn-blue"   (click)="openModal(a)"  title="Consulter"><i class="fa-regular fa-eye"></i></button>
+              <button *ngIf="a.is_active"
+                      class="btn-icon btn-red"    (click)="onDeactivate(a)" title="Désactiver"><i class="fa-solid fa-ban"></i></button>
+              <button *ngIf="!a.is_active"
+                      class="btn-icon btn-green"  (click)="onActivate(a)"   title="Réactiver"><i class="fa-solid fa-circle-check"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #loader><div class="loading">Chargement…</div></ng-template>
+</main>
+
+<!-- Modal -->
+<ng-container *ngIf="selected">
+  <div class="overlay" (click)="closeModal()"></div>
+  <div class="modal">
+    <button class="close-btn" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <p class="modal-title">Détail de l'avis</p>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <p class="detail-label">Auteur</p>
+        <p class="detail-value">{{ selected.acheteur_nom || '—' }}</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label">Vendeur évalué</p>
+        <p class="detail-value">{{ selected.vendeur_nom || '—' }}</p>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom:14px;">
+      <p class="detail-label">Note</p>
+      <div class="stars-lg">
+        <span *ngFor="let i of getStars(selected.note)"
+              [style.color]="i <= selected.note ? '#facc15' : '#e5e7eb'">★</span>
+        <span class="note-txt">({{ selected.note }}/5)</span>
+      </div>
+    </div>
+
+    <div class="detail-item" *ngIf="selected.commentaire" style="margin-bottom:14px;">
+      <p class="detail-label">Commentaire</p>
+      <p class="detail-value" style="white-space:pre-line;line-height:1.7;">{{ selected.commentaire }}</p>
+    </div>
+
+    <div class="modal-footer">
+      <p class="text-muted">Posté le {{ selected.created_at | date:'dd/MM/yyyy' }}</p>
+      <span class="pill" [class.pill-actif]="selected.is_active" [class.pill-inactif]="!selected.is_active">
+        {{ selected.is_active ? 'Actif' : 'Désactivé' }}
+      </span>
+    </div>
+  </div>
+</ng-container>

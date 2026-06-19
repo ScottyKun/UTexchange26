@@ -404,11 +404,12 @@ class MongoMessageService
                 ['$match'   => ['avis' => ['$ne' => []]]],
                 ['$unwind'  => '$avis'],
                 ['$project' => [
-                    'avis'          => 1,
+                    '_id'  => 1,
+                    'avis'=> 1,
                     'annonce_title' => 1,
                     'acheteur_nom'  => 1,
-                    'vendeur_nom'   => 1,
-                    'vendeur_id'    => 1,
+                    'vendeur_nom' => 1,
+                    'vendeur_id' => 1,
                 ]],
                 ['$sort' => ['avis.created_at' => -1]],
             ];
@@ -424,7 +425,7 @@ class MongoMessageService
                 $data['acheteur_nom']  = $row['acheteur_nom']  ?? '';
                 $data['vendeur_nom']   = $row['vendeur_nom']   ?? '';
                 $data['vendeur_id']    = $row['vendeur_id']    ?? null;
-                $data['conv_id']       = isset($row['_id']) ? (string) $row['_id'] : null;
+                $data['conversation_id']  = isset($row['_id']) ? (string) $row['_id'] : null;
                 return Avis::fromArray($data);
             }, $rows);
         } catch (\Exception $e) {

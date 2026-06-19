@@ -1,1 +1,105 @@
-<p>annonces-mg works!</p>
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a routerLink="/admin">Admin</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <span>Annonces</span>
+</div>
+
+<main class="admin-main">
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title"><i class="fa-solid fa-tag" style="color:#0056b3;"></i> Gestion des annonces</h1>
+      <p class="page-sub">{{ annonces.length }} annonces enregistrées</p>
+    </div>
+  </div>
+
+  <div class="table-card" *ngIf="!loading; else loader">
+    <table>
+      <thead>
+        <tr>
+          <th>Annonce</th>
+          <th>Vendeur</th>
+          <th>Type</th>
+          <th>Statut</th>
+          <th>Date</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of annonces">
+
+          <!-- Annonce + miniature -->
+          <td>
+            <div class="annonce-cell">
+              <div class="thumb">
+                <img *ngIf="getCoverUrl(a)" [src]="getCoverUrl(a)" alt="">
+                <i *ngIf="!getCoverUrl(a)" class="fa-regular fa-image"></i>
+              </div>
+              <div>
+                <p class="annonce-title">{{ a.title }}</p>
+                <p class="annonce-price">{{ getPriceLabel(a) }}</p>
+              </div>
+            </div>
+          </td>
+
+          <td class="text-muted">{{ a.seller?.fullName || '—' }}</td>
+
+          <td><span class="pill" [ngClass]="'pill-' + a.type">{{ getTypeLabel(a.type) }}</span></td>
+
+          <td><span class="pill" [ngClass]="'pill-' + a.status">{{ a.status | titlecase }}</span></td>
+
+          <td class="text-muted">{{ a.created_at | date:'dd/MM/yyyy' }}</td>
+
+          <td>
+            <div class="actions">
+              <button class="btn-icon btn-blue"   (click)="openModal(a)"   title="Consulter"><i class="fa-regular fa-eye"></i></button>
+              <button class="btn-icon btn-red"    (click)="onReport(a.id)" title="Signaler"
+                      *ngIf="a.status !== 'signale'"><i class="fa-solid fa-flag"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #loader><div class="loading">Chargement…</div></ng-template>
+</main>
+
+<!-- Modal consulter annonce -->
+<ng-container *ngIf="selected">
+  <div class="overlay" (click)="closeModal()"></div>
+  <div class="modal">
+    <button class="close-btn" (click)="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <p class="modal-title">{{ selected.title }}</p>
+
+    <div class="pills-row">
+      <span class="pill" [ngClass]="'pill-' + selected.type">{{ getTypeLabel(selected.type) }}</span>
+      <span class="pill" [ngClass]="'pill-' + selected.status">{{ selected.status | titlecase }}</span>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <p class="detail-label">Prix</p>
+        <p class="detail-value" style="color:#0056b3;">{{ getPriceLabel(selected) }}</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label">Lieu</p>
+        <p class="detail-value">{{ selected.location || '—' }}</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label">Vendeur</p>
+        <p class="detail-value">{{ selected.seller?.fullName || '—' }}</p>
+      </div>
+      <div class="detail-item">
+        <p class="detail-label">Publiée le</p>
+        <p class="detail-value">{{ selected.created_at | date:'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+
+    <div class="desc-block">
+      <p class="detail-label">Description</p>
+      <p class="desc-text">{{ selected.description }}</p>
+    </div>
+  </div>
+</ng-container>

@@ -1,1 +1,96 @@
-<p>users-list works!</p>
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a routerLink="/admin">Admin</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <span>Utilisateurs</span>
+</div>
+ 
+<main class="admin-main">
+ 
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">
+        <i class="fa-solid fa-users" style="color:#0056b3;"></i>
+        Gestion des utilisateurs
+      </h1>
+      <p class="page-sub">{{ users.length }} utilisateurs enregistrés</p>
+    </div>
+    <button class="btn-primary" (click)="openCard(newUser())">
+      <i class="fa-solid fa-plus"></i> Ajouter
+    </button>
+  </div>
+ 
+  <!-- Table -->
+  <div class="table-card" *ngIf="!loading; else loader">
+    <table>
+      <thead>
+        <tr>
+          <th>Utilisateur</th>
+          <th>Email</th>
+          <th>Campus</th>
+          <th>Rôle</th>
+          <th>Statut</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+ 
+          <!-- Utilisateur -->
+          <td>
+            <div class="user-cell">
+              <div class="avatar">{{ getInitials(u) }}</div>
+              <div>
+                <p class="user-name">{{ u.prenom }} {{ u.nom }}</p>
+                <p class="user-date">Inscrit le {{ u.date_inscription | date:'dd/MM/yyyy' }}</p>
+              </div>
+            </div>
+          </td>
+ 
+          <td class="text-muted">{{ u.email }}</td>
+          <td class="text-muted">{{ u.campus || '—' }}</td>
+ 
+          <!-- Rôle -->
+          <td>
+            <span class="pill pill-role">{{ getRoleLabel(u.role_id) }}</span>
+          </td>
+ 
+          <!-- Statut -->
+          <td>
+            <span class="pill" [class.pill-actif]="u.est_actif" [class.pill-inactif]="!u.est_actif">
+              {{ u.est_actif ? 'Actif' : 'Inactif' }}
+            </span>
+          </td>
+ 
+          <!-- Actions -->
+          <td>
+            <div class="actions">
+              <button class="btn-icon btn-blue"  (click)="openCard(u)"        title="Voir / Modifier"><i class="fa-regular fa-eye"></i></button>
+              <button *ngIf="u.est_actif"
+                      class="btn-icon btn-orange" (click)="onDeactivate(u.id)" title="Désactiver"><i class="fa-solid fa-ban"></i></button>
+              <button *ngIf="!u.est_actif"
+                      class="btn-icon btn-green"  (click)="onActivate(u.id)"   title="Activer"><i class="fa-solid fa-circle-check"></i></button>
+              <button class="btn-icon btn-red"   (click)="onDelete(u.id)"      title="Supprimer"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+ 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ 
+  <ng-template #loader>
+    <div class="loading">Chargement…</div>
+  </ng-template>
+ 
+</main>
+ 
+<!-- User detail card (modal) -->
+<app-user-detail
+  *ngIf="selectedUser"
+  [user]="selectedUser"
+  (closed)="closeCard()"
+  (userUpdated)="onUpdated($event)">
+</app-user-detail>
+ 

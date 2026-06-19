@@ -2,7 +2,7 @@
 
 class Avis{
     private $id;
-    private $conversation_id;
+    private ?string $conversation_id;
     private $acheteur_id;
     private $vendeur_id;
     private $note;
@@ -64,7 +64,7 @@ class Avis{
         string  $commentaire,
         bool $is_active  = true,
         string  $created_at = '',
-        int $conversation_id =0
+        ?string $conversation_id =null
     ) {
         $this->id = $id;
         $this->acheteur_id = $acheteur_id;
@@ -107,7 +107,7 @@ class Avis{
             $data['commentaire'] ?? '',
             (bool) ($data['is_active'] ?? true),
             $data['created_at']  ?? '',
-            (int) ($data['conversation_id'] ?? 0)
+            (string) ($data['conversation_id'] ?? '')
         );
  
         // Champs enrichis (agrégation admin / profil vendeur)

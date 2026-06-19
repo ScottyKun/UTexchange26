@@ -1,0 +1,93 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a routerLink="/admin">Admin</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <span>Catégories</span>
+</div>
+
+<main class="admin-main">
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title"><i class="fa-solid fa-layer-group" style="color:#0056b3;"></i> Gestion des catégories</h1>
+      <p class="page-sub">{{ categories.length }} catégories enregistrées</p>
+    </div>
+    <button class="btn-primary" (click)="openAdd()">
+      <i class="fa-solid fa-plus"></i> Ajouter
+    </button>
+  </div>
+
+  <!-- Formulaire add / edit (inline) -->
+  <div class="form-card" *ngIf="formMode !== 'none'">
+    <h2 class="form-title">
+      <i class="fa-solid" [class.fa-plus]="formMode==='add'" [class.fa-pen-to-square]="formMode==='edit'" style="color:#0056b3;"></i>
+      {{ formMode === 'add' ? 'Ajouter une catégorie' : 'Modifier la catégorie' }}
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nom de la catégorie *</label>
+          <input formControlName="nom" type="text" placeholder="Ex : Informatique, Vêtements…">
+        </div>
+        <div class="form-group">
+          <label>Catégorie parente</label>
+          <select formControlName="parent_id">
+            <option [ngValue]="null">— Aucun parent (catégorie racine) —</option>
+            <option *ngFor="let p of parents"
+                    [ngValue]="p.id"
+                    [disabled]="formMode === 'edit' && editingCat?.id === p.id">
+              {{ p.nom }}
+            </option>
+          </select>
+          <p class="hint"><i class="fa-solid fa-circle-info"></i> Laissez vide pour une catégorie principale.</p>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="closeForm()">Annuler</button>
+        <button type="submit" class="btn-save" [disabled]="saving || form.invalid">
+          <i class="fa-solid" [class.fa-plus]="formMode==='add'" [class.fa-check]="formMode==='edit'"></i>
+          {{ saving ? 'Enregistrement…' : formMode === 'add' ? 'Ajouter' : 'Enregistrer' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card" *ngIf="!loading; else loader">
+    <table>
+      <thead>
+        <tr>
+          <th>Catégorie</th>
+          <th>Parent</th>
+          <th>Statut</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cat of categories">
+          <td class="fw-600">{{ cat.nom }}</td>
+          <td class="text-muted">{{ getParentName(cat.parent_id) }}</td>
+          <td>
+            <span class="pill" [class.pill-actif]="cat.is_active" [class.pill-inactif]="!cat.is_active">
+              {{ cat.is_active ? 'Actif' : 'Inactif' }}
+            </span>
+          </td>
+          <td>
+            <div class="actions">
+              <button class="btn-icon btn-amber" (click)="openEdit(cat)"   title="Modifier"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button *ngIf="cat.is_active"
+                      class="btn-icon btn-orange" (click)="onDeactivate(cat.id)" title="Désactiver"><i class="fa-solid fa-ban"></i></button>
+              <button *ngIf="!cat.is_active"
+                      class="btn-icon btn-green"  (click)="onActivate(cat.id)"   title="Activer"><i class="fa-solid fa-circle-check"></i></button>
+              <button class="btn-icon btn-red"    (click)="onDelete(cat.id)"      title="Supprimer"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #loader><div class="loading">Chargement…</div></ng-template>
+</main>

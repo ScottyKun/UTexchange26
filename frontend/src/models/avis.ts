@@ -6,7 +6,7 @@ export class Avis {
   commentaire: string = '';
   is_active: boolean = true;
   created_at: string = '';
-  conversation_id: number = 0;
+  conversation_id: string = '';
 
   // Champs enrichis (agrégation)
   annonce_title?: string;

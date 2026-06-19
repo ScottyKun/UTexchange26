@@ -41,6 +41,7 @@ class AuthService{
                 'nom' => $user->getNom(),
                 'prenom' => $user->getPrenom(),
                 'email' => $user->getEmail(),
+                'role_id' => $user->getRoleId(),
                 'role_name' => $roleName
             ],
             'token' => $token
