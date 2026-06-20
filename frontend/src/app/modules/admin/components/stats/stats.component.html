@@ -1,0 +1,67 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a routerLink="/admin">Admin</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <span>Statistiques</span>
+</div>
+
+<main class="stats-main">
+
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fa-solid fa-chart-bar" style="color:#0891b2;"></i>
+      Statistiques & Analytiques
+    </h1>
+    <p class="page-sub">Tableau de bord Power BI — données en temps réel</p>
+  </div>
+
+  <!-- Card principale -->
+  <div class="bi-card">
+
+    <div class="bi-card-left">
+      <div class="bi-icon">
+        <i class="fa-solid fa-chart-pie"></i>
+      </div>
+      <div>
+        <p class="bi-title">Tableau de bord UTexCHANGE</p>
+        <p class="bi-sub">Consultez les indicateurs clés : utilisateurs actifs, volumes d'annonces, activité des conversations, avis et logs de connexion.</p>
+
+        <div class="bi-tags">
+          <span class="tag"><i class="fa-solid fa-users"></i> Utilisateurs</span>
+          <span class="tag"><i class="fa-solid fa-tag"></i> Annonces</span>
+          <span class="tag"><i class="fa-solid fa-comments"></i> Conversations</span>
+          <span class="tag"><i class="fa-solid fa-star"></i> Avis</span>
+          <span class="tag"><i class="fa-solid fa-clock-rotate-left"></i> Logs</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bi-card-right">
+      <button class="btn-open" (click)="openDashboard()">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        Ouvrir Power BI
+      </button>
+      <p class="bi-hint">S'ouvre dans un nouvel onglet</p>
+    </div>
+
+  </div>
+
+  <!-- Confirmation après ouverture -->
+  <div class="opened-msg" *ngIf="opened">
+    <i class="fa-solid fa-circle-check"></i>
+    Power BI a été ouvert dans un nouvel onglet. Si la page ne s'affiche pas, vérifiez que vous êtes connecté à votre compte Microsoft.
+  </div>
+
+  <!-- Info -->
+  <div class="info-card">
+    <i class="fa-solid fa-circle-info" style="color:#0891b2;flex-shrink:0;"></i>
+    <div>
+      <p class="info-title">Connexion requise</p>
+      <p class="info-text">
+        Power BI requiert un compte Microsoft lié à votre établissement (UTBM).
+        Les données sont alimentées depuis les APIs de la plateforme et actualisées automatiquement.
+      </p>
+    </div>
+  </div>
+
+</main>

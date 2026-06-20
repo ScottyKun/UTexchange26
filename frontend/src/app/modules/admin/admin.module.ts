@@ -12,6 +12,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { CategoriesMgComponent } from './components/categories-mg/categories-mg.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserAddComponent } from './components/user-add/user-add.component';
+import { StatsComponent } from './components/stats/stats.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { UserAddComponent } from './components/user-add/user-add.component';
     UserDetailComponent,
     CategoriesMgComponent,
     HomeComponent,
-    UserAddComponent
+    UserAddComponent,
+    StatsComponent
   ],
   imports: [
     CommonModule,
