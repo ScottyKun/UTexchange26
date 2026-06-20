@@ -21,6 +21,7 @@ export class ProfilShowComponent implements OnInit {
   loading = true;
   isOwn = false;
   activeTab: 'annonces' | 'avis' = 'annonces';
+  currentForm: 'info' | 'password' | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +52,12 @@ export class ProfilShowComponent implements OnInit {
       this.avis  = res.data?.avis ?? [];
       this.stats = res.data?.stats;
     });
+  }
+
+   openForm(type: 'info' | 'password'): void {
+
+    this.currentForm = type;
+
   }
 
 }

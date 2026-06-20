@@ -6,6 +6,7 @@ import { CategorieService } from 'src/services/categories.service';
 import { AuthService } from 'src/services/auth.service';
 import { Categorie } from 'src/models/categorie';
 import { Annonce } from 'src/models/annonce';
+import { Photo } from 'src/models/photo';
 
 @Component({
   selector: 'app-annonce-edit',
@@ -124,6 +125,24 @@ export class AnnonceEditComponent implements OnInit {
         }
       },
       error: err => { this.errorMsg = err.error?.message || 'Erreur'; this.saving = false; }
+    });
+  }
+
+  setCover(photo: Photo): void {
+    if (!this.annonce) return;
+
+    this.annonceService.setCover(photo.id).subscribe({
+      next: () => {
+
+        // update UI instantanément
+        this.annonce!.photos.forEach(p => {
+          p.is_cover = (p.id === photo.id);
+        });
+
+      },
+      error: (err) => {
+        console.error(err);
+      }
     });
   }
 

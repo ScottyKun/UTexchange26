@@ -1,5 +1,9 @@
+ <div class="breadcrumb">
+    <a routerLink="/">Accueil</a>
+    <span>/</span>
+    <a routerLink="/profil">Profil</a>
+  </div>
 <div class="profil-page" *ngIf="!loading && user">
-
   <div class="profil-layout">
 
     <!-- Colonne gauche : carte profil -->
@@ -25,8 +29,20 @@
             </div>
           </div>
           <div *ngIf="isOwn" class="profil-own-actions">
-            <a routerLink="/profil/edit" class="btn-edit"><i class="fa-solid fa-pen"></i> Modifier</a>
-            <a routerLink="/annonces/user/mine" class="btn-mine">Mes annonces</a>
+             <button 
+                class="btn-edit"
+                (click)="openForm('info')">
+                <i class="fa-solid fa-user-pen"></i>
+                Modifier le profil
+              </button>
+
+
+              <button 
+                class="btn-mine"
+                (click)="openForm('password')">
+                <i class="fa-solid fa-lock"></i>
+                Mot de passe
+              </button>
           </div>
         </div>
       </div>
@@ -47,6 +63,7 @@
       <div *ngIf="activeTab === 'annonces'">
         <div *ngIf="annonces.length === 0" class="empty-tab">Aucune annonce publiée</div>
         <app-annonce-list-item *ngFor="let a of annonces" [annonce]="a"></app-annonce-list-item>
+        <a *ngIf="isOwn && annonces.length > 0" routerLink="/annonces/user/mine" class="view-all-link">Voir mes annonces<i class="fa-solid fa-arrow-right"></i></a>
       </div>
 
       <!-- Tab avis -->
@@ -59,3 +76,17 @@
 </div>
 
 <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
+
+<div 
+ class="modal-overlay"
+ *ngIf="currentForm"
+ (click)="currentForm=null">
+
+
+ <app-profil-edit
+   [mode]="currentForm"
+   (close)="currentForm=null"
+   (click)="$event.stopPropagation()">
+ </app-profil-edit>
+
+</div>

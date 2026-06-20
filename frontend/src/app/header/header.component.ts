@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   currentUser: User | null = null;
   unreadCount = 0;
   searchQuery = '';
+  private interval: any;
 
   constructor(
     private authService: AuthService,
@@ -25,6 +26,10 @@ export class HeaderComponent implements OnInit {
     this.currentUser = this.authService.getCurrentUser();
     if (this.isAuthenticated()) {
       this.loadUnread();
+
+      this.interval = setInterval(() => {
+        this.loadUnread();
+      }, 3000);
     }
   }
 
@@ -47,6 +52,10 @@ export class HeaderComponent implements OnInit {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['/']);
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.interval) clearInterval(this.interval);
   }
 
 }

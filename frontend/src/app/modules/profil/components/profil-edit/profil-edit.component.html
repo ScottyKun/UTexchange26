@@ -2,7 +2,13 @@
   <div *ngIf="loading" class="loader-wrap"><i class="fa-solid fa-spinner fa-spin fa-2x"></i></div>
 
   <ng-container *ngIf="!loading">
-    <div class="form-card">
+    <div class="form-card" *ngIf="mode === 'info'">
+
+      <button 
+          class="modal-close"
+          (click)="close.emit()">
+          <i class="fa-solid fa-xmark"></i>
+      </button>
       <h1 class="form-title"><i class="fa-solid fa-user-pen"></i> Modifier mon profil</h1>
 
       <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
@@ -37,7 +43,12 @@
     </div>
 
     <!-- Changement de mot de passe -->
-    <div class="form-card" style="margin-top:20px;">
+    <div class="form-card" *ngIf="mode === 'password'">
+      <button 
+        class="modal-close"
+        (click)="close.emit()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
       <h2 class="form-title"><i class="fa-solid fa-lock"></i> Changer le mot de passe</h2>
       <div *ngIf="pwdError" class="alert alert-error">{{ pwdError }}</div>
       <form [formGroup]="pwdForm" (ngSubmit)="savePassword()" novalidate>

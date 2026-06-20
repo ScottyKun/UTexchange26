@@ -148,4 +148,12 @@ export class AnnonceShowComponent implements OnInit {
       });
   }
 
+  canEditAnnonce(): boolean {
+    if (!this.annonce) return false;
+
+    return this.isOwner() 
+      && this.annonce.status !== 'vendu'
+      && this.annonce.status !== 'signale';
+  }
+
 }

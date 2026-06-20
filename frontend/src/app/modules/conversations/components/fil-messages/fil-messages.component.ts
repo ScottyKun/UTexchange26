@@ -25,7 +25,8 @@ export class FilMessagesComponent implements OnInit {
   showAvisForm = false;
   avisForm: AvisFormData = { note: 5, commentaire: '' };
   noteRange = [1, 2, 3, 4, 5];
-  shouldScroll = true;
+  shouldScroll = false;
+  private poller: any;
 
 
   constructor(
@@ -47,6 +48,13 @@ export class FilMessagesComponent implements OnInit {
       },
       error: () => { this.loading = false; }
     });
+    this.poller = setInterval(() => {
+      this.refreshMessages2();
+    }, 3000); // toutes les 3 secondes
+  }
+
+  ngOnDestroy(): void {
+    if (this.poller) clearInterval(this.poller);
   }
 
   ngAfterViewChecked(): void {
@@ -70,6 +78,7 @@ export class FilMessagesComponent implements OnInit {
         this.messages.push(res.data);
         this.newMessage = '';
         this.sending = false;
+        this.refreshMessages();
       },
       error: () => { this.sending = false; }
     });
@@ -108,13 +117,29 @@ export class FilMessagesComponent implements OnInit {
   }
 
   onMessageAction(action: 'edit' | 'save' | 'delete' | 'cancel'): void {
-    if (action === 'edit' || 'cancel') {
+    if (action === 'edit' || action === 'cancel')  {
       this.shouldScroll = false;
     }
 
     if (action === 'save') {
       this.shouldScroll = true; 
       this.scrollToBottom();
+    }
+  }
+
+  refreshMessages(): void {
+    this.convService.getMessages(this.conversation!.id).subscribe(res => {
+      this.messages     = (res.data ?? []).map(m => new Message(m));
+      this.shouldScroll = true;
+    });
+  }
+
+  refreshMessages2(): void {
+    if (! this.conversation?.isTerminee){
+      this.convService.getMessages(this.conversation!.id).subscribe(res => {
+      this.messages     = (res.data ?? []).map(m => new Message(m));
+      this.shouldScroll = false;
+    });
     }
   }
 

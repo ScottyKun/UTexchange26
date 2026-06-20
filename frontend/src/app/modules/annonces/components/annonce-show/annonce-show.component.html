@@ -11,8 +11,8 @@
     <!-- Breadcrumb -->
     <div class="breadcrumb">
       <a routerLink="/annonces">Annonces</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <a routerLink="/annonces/user/mine">Annonces de {{ user?.prenom + ' ' + user?.nom }}</a>
+      <i *ngIf="isOwner()" class="fa-solid fa-chevron-right"></i>
+      <a *ngIf="isOwner()" routerLink="/annonces/user/mine">Annonces de {{ user?.prenom + ' ' + user?.nom }}</a>
       <i class="fa-solid fa-chevron-right"></i>
       <span>{{ annonce.title }}</span>
     </div>
@@ -31,7 +31,7 @@
 
           <div class="badge-actions">
 
-            <ng-container *ngIf="isOwner(); else readonlyBadges">
+            <ng-container *ngIf="canEditAnnonce(); else readonlyBadges">
 
               <button class="detail-pill pill-{{annonce.type}}"
                       (click)="changeType()">
@@ -99,7 +99,7 @@
         <!-- Actions -->
         <div class="sidebar-card">
 
-          <ng-container *ngIf="!isOwner()">
+          <ng-container *ngIf="annonce.status !== 'vendu' && annonce.status !== 'signale' && !isOwner()">
 
             <button class="btn-primary"
                     (click)="contacter()"
@@ -125,7 +125,7 @@
 
           </ng-container>
 
-          <ng-container *ngIf="isOwner()">
+          <ng-container *ngIf="canEditAnnonce(); else readonlyAnnonce">
 
             <a [routerLink]="['/annonces', annonce.id, 'edit']"
               class="btn-primary">
@@ -136,6 +136,22 @@
             </a>
 
           </ng-container>
+
+          <ng-template  #readonlyAnnonce >
+
+             <ng-container *ngIf="isOwner()">
+
+              <div class="readonly-badge">
+
+                <i class="fa-solid fa-lock"></i>
+
+                Annonce en lecture seule
+
+              </div>
+
+            </ng-container>
+
+          </ng-template>
 
         </div>
 

@@ -128,13 +128,37 @@ class MongoMessageService
     public static function getByUser(int $userId): array
     {
         try {
-            $cursor = self::col()->find(
-                ['$or' => [['acheteur_id' => $userId], ['vendeur_id' => $userId]]],
-                array_merge(self::TYPE_MAP, [
-                    'sort'       => ['last_message_at' => -1],
-                    'projection' => ['messages' => 0, 'avis' => 0],
-                ])
-            );
+            $pipeline = [
+                // Conversations de l'utilisateur
+                ['$match' => ['$or' => [
+                    ['acheteur_id' => $userId],
+                    ['vendeur_id'  => $userId],
+                ]]],
+
+                // Calculer unread_count : messages non lus et pas de l'utilisateur
+                ['$addFields' => [
+                    'unread_count' => [
+                        '$size' => [
+                            '$filter' => [
+                                'input' => '$messages',
+                                'as'    => 'msg',
+                                'cond'  => ['$and' => [
+                                    ['$eq' => ['$$msg.is_read',       false]],
+                                    ['$ne' => ['$$msg.expediteur_id', $userId]],
+                                ]],
+                            ],
+                        ],
+                    ],
+                ]],
+
+                // Exclure les tableaux lourds (messages + avis)
+                ['$project' => ['messages' => 0, 'avis' => 0]],
+
+                // Trier par dernier message
+                ['$sort' => ['last_message_at' => -1]],
+            ];
+
+            $cursor = self::col()->aggregate($pipeline, self::TYPE_MAP);
 
             return array_map(
                 fn($doc) => Conversation::fromArray(self::normalize($doc)),

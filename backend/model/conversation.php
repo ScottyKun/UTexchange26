@@ -12,6 +12,8 @@ class Conversation{
     private ?string $last_message;
     private ?string $last_message_at;
     private string  $created_at;
+
+    private int $unread_count = 0;
  
     private array $messages;
  
@@ -27,9 +29,11 @@ class Conversation{
     public function getStatus(): string      { return $this->status; }
     public function getLastMessage(): ?string    { return $this->last_message; }
     public function getLastMessageAt(): ?string  { return $this->last_message_at; }
-    public function getCreatedAt(): string       { return $this->created_at; }
-    public function getMessages(): array         { return $this->messages; }
-    public function getAvis(): array             { return $this->avis; }
+    public function getCreatedAt(): string   { return $this->created_at; }
+    public function getMessages(): array   { return $this->messages; }
+    public function getAvis(): array   { return $this->avis; }
+
+    public function getUnreadCount(): int { return $this->unread_count; }
 
     public function __construct(
         ?string $id,
@@ -75,6 +79,7 @@ class Conversation{
             'last_message'    => $this->last_message,
             'last_message_at' => $this->last_message_at,
             'created_at'      => $this->created_at,
+            'unread_count'    => $this->unread_count,
         ];
  
         if ($withMessages) {
@@ -100,7 +105,7 @@ class Conversation{
             $data['avis'] ?? []
         );
  
-        return new self(
+        $conv= new self(
             $data['id']              ?? null,
             (int) ($data['annonce_id']  ?? 0),
             $data['annonce_title']   ?? '',
@@ -115,6 +120,8 @@ class Conversation{
             $messages,
             $avis
         );
+        $conv->unread_count = (int) ($data['unread_count'] ?? 0);
+        return $conv;
     }
 
     public function hasAvisFromUser(int $userId): bool

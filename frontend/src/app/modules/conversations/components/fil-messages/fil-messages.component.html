@@ -34,7 +34,7 @@
             </span>
 
             <button *ngIf="isVendeur() && conversation.isActive"
-                    class="btn-sm btn-danger"
+                    class="btn-danger"
                     (click)="terminateConversation()">
               Terminer
             </button>
@@ -116,36 +116,79 @@
 
         </div>
 
-        <div *ngIf="conversation.isTerminee && !hasMyAvis() && !isVendeur()"
-             class="avis-cta">
+        <div *ngIf="conversation.isTerminee && !hasMyAvis() && !isVendeur()" >
 
           <button (click)="showAvisForm = !showAvisForm" class="btn-avis">
             <i class="fa-solid fa-star"></i> Laisser un avis
           </button>
 
-          <div *ngIf="showAvisForm" class="avis-form">
+          <!-- MODAL AVIS -->
+      <div class="modal-overlay" *ngIf="showAvisForm">
+
+        <div class="avis-modal">
+
+          <!-- HEADER -->
+          <div class="modal-header">
+            <h3>
+              <i class="fa-solid fa-star"></i>
+              Evaluer votre échange
+            </h3>
+
+            <button 
+              class="close-btn"
+              (click)="showAvisForm = false">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+
+          <!-- BODY -->
+          <div class="modal-body">
 
             <label>Note</label>
 
             <div class="stars-input">
-              <span *ngFor="let n of noteRange"
-                    (click)="avisForm.note = n"
-                    [class.active]="n <= avisForm.note"
-                    class="star">
+              <span 
+                *ngFor="let n of noteRange"
+                (click)="avisForm.note = n"
+                [class.active]="n <= avisForm.note"
+                class="star">
                 ★
               </span>
             </div>
 
-            <textarea [(ngModel)]="avisForm.commentaire"
-                      rows="3"
-                      placeholder="Votre commentaire…">
+
+            <textarea
+              [(ngModel)]="avisForm.commentaire"
+              rows="4"
+              placeholder="Votre commentaire…">
             </textarea>
 
-            <button class="btn-sm btn-primary" (click)="submitAvis()">
+
+          </div>
+
+
+          <!-- FOOTER -->
+          <div class="modal-footer">
+
+            <button 
+              class="btn-cancel"
+              (click)="showAvisForm = false">
+              Annuler
+            </button>
+
+
+            <button 
+              class="btn-submit"
+              (click)="submitAvis()">
               Envoyer
             </button>
 
           </div>
+
+        </div>
+
+      </div>
 
         </div>
 

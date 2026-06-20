@@ -54,8 +54,27 @@
         <label>Photos actuelles</label>
         <div class="photo-grid">
           <div *ngFor="let p of annonce.photos" class="photo-thumb">
-            <img [src]="'http://localhost:8000/api/photos/' + annonce.id + '/' + p.nom_fichier" [alt]="p.nom_fichier"/>
-            <button type="button" class="photo-delete" (click)="deletePhoto(p.id)">&times;</button>
+            <div class="photo-thumb"
+                (click)="setCover(p)">
+
+              <img
+                [src]="'http://localhost:8000/api/photos/' + annonce.id + '/' + p.nom_fichier"
+                [alt]="p.nom_fichier"
+              />
+
+              <!-- COVER BADGE -->
+              <span class="cover-badge" *ngIf="p.is_cover">
+                Cover
+              </span>
+
+              <!-- DELETE -->
+              <button type="button"
+                      class="photo-delete"
+                      (click)="deletePhoto(p.id); $event.stopPropagation()">
+                &times;
+              </button>
+
+            </div>
           </div>
         </div>
       </div>

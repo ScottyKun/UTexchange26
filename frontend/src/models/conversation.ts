@@ -17,6 +17,7 @@ export class Conversation {
   created_at: string = '';
   messages: Message[] = [];
   avis: Avis[] = [];
+  unread_count: number = 0; 
 
   constructor(data: Partial<Conversation> = {}) {
     Object.assign(this, data);

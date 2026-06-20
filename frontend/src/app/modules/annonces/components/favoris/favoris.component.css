@@ -3,3 +3,6 @@
 .annonces-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
 .loader-wrap, .empty-state { display:flex; flex-direction:column; align-items:center; gap:12px; padding:60px 20px; color:#9ca3af; }
 .btn-cta { padding:10px 20px; background:#0056b3; color:#fff; border-radius:10px; text-decoration:none; font-weight:600; font-size:13px; }
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:#9ca3af;padding:16px 20px 0; margin-bottom: 10 px;}
+.breadcrumb a{color:inherit;text-decoration:none;}.breadcrumb a:hover{color:#0056b3;}
+.breadcrumb i{font-size:8px;}.breadcrumb span{color:#374151;font-weight:500;}

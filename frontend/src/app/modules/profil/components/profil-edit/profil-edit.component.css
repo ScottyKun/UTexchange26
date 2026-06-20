@@ -1,5 +1,18 @@
-.form-page { max-width:600px; margin:0 auto; padding:28px 20px; }
-.form-card { background:#fff; border-radius:16px; padding:32px; box-shadow:0 2px 16px rgba(0,0,0,.06); }
+.form-page {
+  width:100%;
+  max-width:600px;
+}
+.form-card {
+position:relative;
+
+background:#fff;
+border-radius:16px;
+
+padding:32px;
+
+box-shadow:0 2px 16px rgba(0,0,0,.06);
+
+}
 .form-title { font-size:1.1rem; font-weight:700; color:#1e293b; margin-bottom:20px; display:flex; align-items:center; gap:8px; }
 .form-group { margin-bottom:14px; }
 .form-group label { display:block; font-size:13px; font-weight:600; color:#374151; margin-bottom:5px; }
@@ -15,3 +28,22 @@
 .alert-success { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
 .alert-error { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
 .loader-wrap { display:flex; justify-content:center; padding:60px; color:#9ca3af; }
+.modal-close {
+
+position:absolute;
+
+top:15px;
+right:15px;
+
+border:none;
+
+background:#f3f4f6;
+
+width:32px;
+height:32px;
+
+border-radius:50%;
+
+cursor:pointer;
+
+}

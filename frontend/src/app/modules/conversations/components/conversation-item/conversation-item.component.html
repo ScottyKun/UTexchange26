@@ -12,5 +12,8 @@
   <div class="conv-meta">
     <span class="conv-date">{{ conversation.last_message_at | date:'dd/MM' }}</span>
     <span class="conv-badge status-{{ conversation.status }}">{{ conversation.status | convStatus }}</span>
+    <span class="unread-badge" *ngIf="conversation.unread_count > 0">
+      {{ conversation.unread_count }}
+    </span>
   </div>
 </div>

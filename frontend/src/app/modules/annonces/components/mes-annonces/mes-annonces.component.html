@@ -1,3 +1,8 @@
+ <div class="breadcrumb">
+    <a routerLink="/">Accueil</a>
+    <span>/</span>
+    <a routerLink="/profil">Profil</a>
+</div>
 <div class="page">
   <div class="page-header">
     <h1>Mes annonces</h1>
@@ -23,7 +28,7 @@
   <span class="row-status status-{{ a.status }}">{{ a.status }}</span>
 
   <span class="row-price">
-    {{ a.isFree ? 'Gratuit' : (a.price + ' €') }}
+    {{ a.isFree ? 'Gratuit' : a.isTroc ? 'Troc': (a.price + ' €') }}
   </span>
 
   <span class="row-date">

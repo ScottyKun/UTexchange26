@@ -40,10 +40,10 @@
             <span>Favoris</span>
           </a>
 
-          <a routerLink="/conversations" class="nav-item msg-item">
+          <a routerLink="/conversations" class="nav-item" style="position:relative;">
             <i class="fa-regular fa-comment-dots"></i>
             <span>Messages</span>
-            <span class="unread-badge" *ngIf="unreadCount > 0">
+            <span *ngIf="unreadCount > 0" class="unread-badge" >
               {{ unreadCount }}
             </span>
           </a>
