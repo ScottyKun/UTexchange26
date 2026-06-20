@@ -16,6 +16,7 @@ class JwtService
         $payload = array_merge($payload, [
             'iat' => $now,            // émis à
             'exp' => $now + $expiry,  // expire à
+            'type' => $payload['type'] ?? 'user'
         ]);
 
         return JWT::encode($payload, $secret, 'HS256');

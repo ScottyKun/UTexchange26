@@ -21,9 +21,37 @@ class ApiAdmin extends BaseApiController
         ApiResponse::success($data);
     }
 
+    public function allAnnoncesBI(): void
+    {
+        $user = $this->requireBI();
+        $annonces = AnnonceService::getByAdmin();
+
+        $data = [];
+        foreach ($annonces as $a) {
+            $row  = $a->toArray();
+            $cover  = PhotoService::getCover($a->getId());
+            $seller  = UserService::getById($a->getUtilisateurId());
+            $row['cover']  = $cover  ? $cover->toArray()  : null;
+            $row['seller'] = $seller ? $seller->toArray() : null;
+            $data[]  = $row;
+        }
+
+        ActivityLogService::log('admin_list_annonces', $user['user_id']);
+        ApiResponse::success($data);
+    }
+
     public function allAvis(): void
     {
         $user = $this->requireAdmin();
+        $avis = MongoMessageService::getAllAvis();
+
+        ActivityLogService::log('admin_list_avis', $user['user_id']);
+        ApiResponse::success(array_map(fn($a) => $a->toArray(), $avis));
+    }
+
+    public function allAvisBI(): void
+    {
+        $user = $this->requireBI();
         $avis = MongoMessageService::getAllAvis();
 
         ActivityLogService::log('admin_list_avis', $user['user_id']);
@@ -69,7 +97,7 @@ class ApiAdmin extends BaseApiController
 
     public function stats(): void
     {
-        $user = $this->requireAdmin();
+        $user = $this->requireBI();
 
         $data = [
             // Stats PostgreSQL
@@ -91,7 +119,7 @@ class ApiAdmin extends BaseApiController
 
     public function activityLogs(): void
     {
-        $user   = $this->requireAdmin();
+        $user = $this->requireBI();
         $query  = $this->getQuery();
         $limit  = (int) ($query['limit']  ?? 100);
         $offset = (int) ($query['offset'] ?? 0);
@@ -107,7 +135,7 @@ class ApiAdmin extends BaseApiController
 
     public function connectionLogs(): void
     {
-        $user   = $this->requireAdmin();
+        $user = $this->requireBI();
         $query  = $this->getQuery();
         $limit  = (int) ($query['limit']  ?? 100);
         $offset = (int) ($query['offset'] ?? 0);

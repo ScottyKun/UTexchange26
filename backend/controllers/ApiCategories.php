@@ -11,6 +11,15 @@ class ApiCategories extends BaseApiController
         ActivityLogService::log('list_categories', $auth['user_id'] ?? null);
         ApiResponse::success(array_map(fn($c) => $c->toArray(), $categories));
     }
+
+    public function indexBI(): void
+    {
+        $auth = $this->requireBI();
+        $categories = CategorieService::getAll();
+ 
+        ActivityLogService::log('list_categories', $auth['user_id'] ?? null);
+        ApiResponse::success(array_map(fn($c) => $c->toArray(), $categories));
+    }
     //add
      public function store(): void
     {

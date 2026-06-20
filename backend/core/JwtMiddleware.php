@@ -24,6 +24,10 @@ class JwtMiddleware
             ApiResponse::error('Token invalide ou expiré', 401);
         }
 
+        if (($payload['type'] ?? 'user') === 'bi') {
+            return $payload;
+        }
+
         return $payload;
     }
 

@@ -86,8 +86,17 @@ return function (RouteCollector $r) {
     $r->put('/api/admin/conversations/{convId}/avis/{avisId}/activate', ['ApiAdmin', 'activateAvis']);
     $r->put('/api/admin/conversations/{convId}/avis/{avisId}/deactivate', ['ApiAdmin', 'deactivateAvis']);
     $r->put('/api/admin/annonces/{id:\d+}/report', ['ApiAdmin', 'reportAnnonce']);
-    $r->get('/api/admin/stats', ['ApiAdmin', 'stats']);
-    $r->get('/api/admin/logs/activity', ['ApiAdmin', 'activityLogs']);
-    $r->get('/api/admin/logs/connections', ['ApiAdmin', 'connectionLogs']);
+    
+    
+    
+    //PowerBI
+    $r->get('/api/adminBI/stats', ['ApiAdmin', 'stats']);
+    $r->get('/api/adminBI/logs/activity', ['ApiAdmin', 'activityLogs']);
+    $r->get('/api/adminBI/logs/connections', ['ApiAdmin', 'connectionLogs']);
+    $r->get('/api/adminBI/annonces', ['ApiAdmin', 'allAnnoncesBI']);
+    $r->get('/api/adminBI/avis', ['ApiAdmin', 'allAvisBI']);
+    $r->get('/api/adminBI/categories', ['ApiCategories', 'indexBI']);
+    $r->get('/api/adminBI/users', ['ApiUsers', 'indexBI']);
+    $r->post('/auth/bi/token', ['ApiAuth', 'generateBiToken']);
 
 };

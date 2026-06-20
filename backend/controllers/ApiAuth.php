@@ -100,4 +100,21 @@ class ApiAuth extends BaseApiController
         $domain = substr(strrchr($email, "@"), 1);
         return in_array(strtolower($domain), $allowedDomains);
     }
+
+    public function generateBiToken()
+    {
+        $this->requireAdmin();
+
+        $token = JwtService::generate([
+            'user_id' => 999,
+            'email' => 'powerbi@utexchange.fr',
+            'role_name' => 'BI',
+            'type' => 'bi',
+            'exp' => time() + (60 * 60 * 24 * 365 * 10) // 10 ans
+        ]);
+
+        return ApiResponse::success([
+            'token' => $token
+        ]);
+    }
 }

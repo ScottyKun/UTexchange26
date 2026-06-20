@@ -53,4 +53,15 @@ abstract class BaseApiController
         $payload = JwtService::verify(substr($authHeader, 7));
         return empty($payload) ? null : $payload;
     }
+
+    protected function requireBI(): array
+    {
+        $payload = $this->requireAuth();
+
+        if (($payload['type'] ?? 'user') !== 'bi') {
+            ApiResponse::error('Access BI only', 403);
+        }
+
+        return $payload;
+    }
 }

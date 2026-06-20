@@ -11,6 +11,15 @@ class ApiUsers extends BaseApiController
         ActivityLogService::log('list_users', $user['user_id']);
         ApiResponse::success(array_map(fn($u) => $u->toArray(), $users));
     }
+
+    public function indexBI(): void
+    {
+        $user  = $this->requireBI();
+        $users = UserService::getAll();
+ 
+        ActivityLogService::log('list_users', $user['user_id']);
+        ApiResponse::success(array_map(fn($u) => $u->toArray(), $users));
+    }
     //show
     public function show(int $id): void
     {
