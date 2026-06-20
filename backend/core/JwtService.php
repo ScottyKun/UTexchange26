@@ -42,4 +42,17 @@ class JwtService
     {
         return !empty(self::verify($token));
     }
+
+    public static function generateBi(array $payload): string
+    {
+        $secret = $_ENV['JWT_SECRET'] ?? 'fallback_secret';
+        $now    = time();
+
+        $payload = array_merge($payload, [
+            'iat' => $now,
+            'exp' => $now + (60 * 60 * 24 * 365 * 10) // 10 ans
+        ]);
+
+        return JWT::encode($payload, $secret, 'HS256');
+    }
 }
