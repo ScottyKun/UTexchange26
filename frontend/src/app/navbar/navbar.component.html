@@ -3,31 +3,45 @@
 
     <!-- TOUT -->
     <li>
-      <a
-        [routerLink]="['/annonces']"
-        [ngClass]="{ 'active-all': isAllActive() }">
+      <a [routerLink]="['/annonces']"
+         [ngClass]="{ 'active-all': isAllActive() }">
         <i class="fa-solid fa-border-all"></i> Tout
       </a>
     </li>
 
     <!-- DONS -->
     <li>
-      <a
-        [routerLink]="['/annonces']"
-        [queryParams]="{ type: 'don' }"
-        [ngClass]="{ 'active-don': isDonActive() }">
+      <a [routerLink]="['/annonces']"
+         [queryParams]="{ type: 'don' }"
+         [ngClass]="{ 'active-don': isDonActive() }">
         <i class="fa-solid fa-gift"></i> Dons
       </a>
     </li>
 
-    <!-- CATEGORIES -->
-    <li *ngFor="let c of categories">
-      <a
-        [routerLink]="['/annonces']"
-        [queryParams]="{ cat_id: c.id }"
-        [ngClass]="{ 'active-cat': isCatActive(c.id) }">
-        {{ c.nom }}
+    <!-- CATÉGORIES PARENTES -->
+    <li *ngFor="let parent of parents"
+        [class.has-dropdown]="hasChildren(parent.id)">
+
+      <!-- Lien parent -->
+      <a [routerLink]="['/annonces']"
+         [queryParams]="{ cat_id: parent.id }"
+         [ngClass]="{ 'active-cat': isCatActive(parent.id) }">
+        {{ parent.nom }}
+        <i *ngIf="hasChildren(parent.id)"
+           class="fa-solid fa-chevron-down dropdown-arrow"></i>
       </a>
+
+      <!-- Dropdown enfants -->
+      <ul class="dropdown" *ngIf="hasChildren(parent.id)">
+        <li *ngFor="let child of getChildren(parent.id)">
+          <a [routerLink]="['/annonces']"
+             [queryParams]="{ cat_id: child.id }"
+             [ngClass]="{ 'active-cat': activeCatId === child.id }">
+            {{ child.nom }}
+          </a>
+        </li>
+      </ul>
+
     </li>
 
   </ul>

@@ -134,6 +134,21 @@ class ApiAnnonces extends BaseApiController
         ApiResponse::success($data);
       
     }
+    //allByUserID
+    public function getByUserId(int $userid){
+        $annonces = AnnonceService::getAllByUser($userid);
+ 
+        $data = [];
+        foreach ($annonces as $a) {
+            $row = $a->toArray();
+            $cover  = PhotoService::getCover($a->getId());
+            $row['cover'] = $cover ? $cover->toArray() : null;
+            $data[] = $row;
+        }
+ 
+        ActivityLogService::log('list_my_annonces', $userid);
+        ApiResponse::success($data);
+    }
     //show
     public function show(int $id): void{
         $auth    = $this->tryAuth();

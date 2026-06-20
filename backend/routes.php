@@ -33,7 +33,8 @@ return function (RouteCollector $r) {
 
     //annonces
     $r->get('/api/annonces', ['ApiAnnonces', 'index']);
-    $r->get('/api/annonces/mine', ['ApiAnnonces', 'mine']);        
+    $r->get('/api/annonces/mine', ['ApiAnnonces', 'mine']); 
+    $r->get('/api/annonces/user/{id:\d+}', ['ApiAnnonces', 'getByUserId']);        
     $r->get('/api/annonces/{id:\d+}', ['ApiAnnonces', 'show']);
     $r->post('/api/annonces/add', ['ApiAnnonces', 'store']);
     $r->put('/api/annonces/update/{id:\d+}', ['ApiAnnonces', 'update']);

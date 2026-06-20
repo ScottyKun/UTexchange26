@@ -11,6 +11,7 @@ import { AvisMgComponent } from './components/avis-mg/avis-mg.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { CategoriesMgComponent } from './components/categories-mg/categories-mg.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserAddComponent } from './components/user-add/user-add.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { HomeComponent } from './components/home/home.component';
     AvisMgComponent,
     UserDetailComponent,
     CategoriesMgComponent,
-    HomeComponent
+    HomeComponent,
+    UserAddComponent
   ],
   imports: [
     CommonModule,

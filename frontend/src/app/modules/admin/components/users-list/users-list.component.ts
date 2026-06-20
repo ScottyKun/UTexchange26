@@ -9,9 +9,10 @@ import { UserService } from 'src/services/users.service';
 })
 export class UsersListComponent implements OnInit {
 
-  users: User[]       = [];
+  users: User[]  = [];
   selectedUser: User | null = null;
-  loading             = true;
+  loading  = true;
+  showAddModal = false;
  
   constructor(private userService: UserService) {}
  
@@ -59,6 +60,12 @@ export class UsersListComponent implements OnInit {
     return ((user.prenom?.[0] ?? '') + (user.nom?.[0] ?? '')).toUpperCase();
   }
 
-  newUser(): User { return new User(); }
+  openAddModal(): void  { this.showAddModal = true; }
+  closeAddModal(): void { this.showAddModal = false; }
+
+  onUserCreated(): void {
+    this.showAddModal = false;
+    this.loadUsers(); 
+  }
 
 }

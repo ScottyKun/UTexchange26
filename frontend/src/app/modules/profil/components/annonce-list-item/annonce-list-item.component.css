@@ -7,3 +7,5 @@
 .item-status { padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; }
 .status-active { background:#d1fae5; color:#059669; }
 .status-vendu  { background:#dbeafe; color:#1d4ed8; }
+.status-draft { background:#f3f4f6;color:#6b7280; }
+.status-signale { background:#fee2e2;color:#dc2626; }

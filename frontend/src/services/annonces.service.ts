@@ -35,6 +35,12 @@ export class AnnonceService {
       map(res => ({ ...res, data: res.data?.map((a: any) => new Annonce(a)) ?? [] }))
     );
   }
+
+  getByUserId(id: number): Observable<ApiResponse<Annonce[]>> {
+    return this.http.get<ApiResponse<any[]>>(`${this.url}/user/${id}`).pipe(
+      map(res => ({ ...res, data: res.data?.map((a: any) => new Annonce(a)) ?? [] }))
+    );
+  }
  
   getById(id: number): Observable<ApiResponse<Annonce>> {
     return this.http.get<ApiResponse<any>>(`${this.url}/${id}`).pipe(

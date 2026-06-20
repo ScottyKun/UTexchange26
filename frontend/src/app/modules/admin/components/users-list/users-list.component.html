@@ -16,7 +16,7 @@
       </h1>
       <p class="page-sub">{{ users.length }} utilisateurs enregistrés</p>
     </div>
-    <button class="btn-primary" (click)="openCard(newUser())">
+    <button class="btn-primary" (click)="openAddModal()">
       <i class="fa-solid fa-plus"></i> Ajouter
     </button>
   </div>
@@ -93,4 +93,11 @@
   (closed)="closeCard()"
   (userUpdated)="onUpdated($event)">
 </app-user-detail>
+
+<!-- User add card (modal) -->
+<app-user-add
+  *ngIf="showAddModal"
+  (closed)="closeAddModal()"
+  (userCreated)="onUserCreated()">
+</app-user-add>
  

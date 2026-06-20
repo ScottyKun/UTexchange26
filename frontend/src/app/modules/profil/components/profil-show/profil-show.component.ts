@@ -43,7 +43,7 @@ export class ProfilShowComponent implements OnInit {
       error: () => { this.loading = false; }
     });
 
-    this.annonceService.getMine().subscribe(res => {
+    this.annonceService.getByUserId(userId).subscribe(res => {
       this.annonces = (res.data ?? []);
     });
 
