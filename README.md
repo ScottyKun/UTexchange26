@@ -62,7 +62,7 @@ cd frontend
 2. Installer les dépendances :
 
 ```bash
-npm install
+npm install --force
 ```
 
 4. Lancer l'application Angular en mode développement :
@@ -117,9 +117,14 @@ Ces instructions couvrent l'installation et le lancement sous Windows (PowerShel
 ```
 extension=pgsql
 extension=pdo_pgsql
+extension=zip
+extension=mongodb
 ```
 
-2. Redémarrez Apache via le panneau XAMPP.
+2. Télécharger la bonne DLL MongoDB, ex: php_mongodb-1.17.0-8.2-ts-x64.zip et copie php_mongodb.dll dans C:\xampp\php\ext\
+
+3. Redémarrez Apache via le panneau XAMPP.
+
 
 ### Installer dépendances et lancer le backend
 
